@@ -6,7 +6,7 @@ set :deploy_to, "/var/rails/#{application}"
 
 
 set :scm, :git
-set :repository, "git@gitbase.com:nextmood/pikizi/engine.git"
+set :repository, "git@github.com:nextmood/pikizi-backend.git" 
 set :branch, "master"
 set :deploy_via, :remote_cache
 
