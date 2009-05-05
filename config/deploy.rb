@@ -5,13 +5,7 @@ set :application, "pikizi"
 set :deploy_to, "/var/rails/#{application}"
 
 set :scm, "git"
-set :scm_passphrase, "p@ssw0rd" #This is your custom users password
-set :user, "deployer"
-
-
-set :scm, "git"
 set :repository, "git@github.com:nextmood/pikizi-backend.git" 
-set :scm_passphrase, "sarah9"
 
 set :branch, "master"
 set :deploy_via, :remote_cache
