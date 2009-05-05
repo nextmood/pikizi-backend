@@ -8,7 +8,7 @@ set :scm, "git"
 set :repository, "git@github.com:nextmood/pikizi-backend.git" 
 
 set :branch, "master"
-set :deploy_via, :remote_cache
+#set :deploy_via, :remote_cache
 
 set :domain, "wikismo.com"
 
