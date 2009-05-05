@@ -1,0 +1,23 @@
+	<%= box_title %>
+		Authored...
+	<%= box_content %>
+	<h2>To be completed</h2>
+	<%= box_end %>
+
+
+	<%= box_title %>
+		User <%= @user.screen_name %>
+	<%= box_content %>
+		<p><%= image_tag "/users/#{@user.id}/thumbnail.jpg" %></p>
+		<p><%= label_tag 'login' %>&nbsp;<b><%= @user.login %></b>&nbsp;<%= link_to("edit", "/users/#{@user.id}/edit") %></p>
+		<p><%= label_tag 'name' %>&nbsp;<b><%= @user.name %></b></p>
+		<p><%= label_tag 'email' %>&nbsp;<b><%= @user.email %></b></p>
+		<p><%= label_tag 'rating' %>&nbsp;<b><%= as_stars(@user.weight) %></b></p>
+		<p><%= label_tag 'expert in category' %>&nbsp;<b><%= @user.expert_in_category ? @user.expert_in_category.path_without_root : 'none' %></b></p>
+		
+		<p><%= label_tag 'roles' %>&nbsp;<b><%= @user.roles.join(', ') if @user.roles %></b></p>
+		<p>Updated at:<b><%= format_date(@user.updated_at) %></b></p>
+	<%= box_end %>
+
+	
+	

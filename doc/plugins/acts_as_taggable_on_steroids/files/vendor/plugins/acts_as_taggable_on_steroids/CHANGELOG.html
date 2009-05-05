@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: CHANGELOG</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>CHANGELOG</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/acts_as_taggable_on_steroids/CHANGELOG
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sat Mar 14 15:06:14 +0100 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+[17 Sep 08]
+</p>
+<ul>
+<li>Sanitize scope conditions in find_options_for_tag_counts [Rémy-Christophe
+Schermesser]
+
+</li>
+</ul>
+<p>
+[23 Aug 08]
+</p>
+<ul>
+<li>Fix tag_counts instance method when no tags are present.
+
+</li>
+<li>Make tag_counts instance_method merge any :conditions passed to it.
+
+</li>
+</ul>
+<p>
+[30 Mar 08]
+</p>
+<ul>
+<li>Make TagList.from accept array arguments.
+
+</li>
+</ul>
+<p>
+[29 Mar 08]
+</p>
+<ul>
+<li>Improve parsing of quotes inside tags [Arturas Slajus].
+
+</li>
+<li>Add <a href="../../../../classes/Tag.html#M000010">Tag.counts</a> method.
+
+</li>
+</ul>
+<p>
+[28 Mar 08]
+</p>
+<ul>
+<li>Make Tag#taggings :dependent =&gt; :destroy.
+
+</li>
+</ul>
+<p>
+[27 Mar 08]
+</p>
+<ul>
+<li>Fix documentation for tag_counts.
+
+</li>
+</ul>
+<p>
+[18 Mar 08]
+</p>
+<ul>
+<li>Add <a href="../../../../classes/TagList.html#M000004">TagList#toggle</a>
+[Pete Yandell].
+
+</li>
+</ul>
+<p>
+# Add find_related_tags method [Austin Foncaier].
+</p>
+<p>
+[30 Jan 08]
+</p>
+<ul>
+<li>Fix Tag.destroy_unused on Rails 2.0.
+
+</li>
+</ul>
+<p>
+[23 October 2007]
+</p>
+<ul>
+<li>Make find_options_for_tag_counts and find_options_for_tagged_with dup their
+options.
+
+</li>
+<li>Apply conditions properly in find_options_for_tag_counts.
+
+</li>
+<li>Fix tag_cloud when no tags are present.
+
+</li>
+</ul>
+<p>
+[22 October 2007]
+</p>
+<ul>
+<li>Fix find_tagged_with using :match_all and :include.
+
+</li>
+<li>Use inner joins instead of left outer joins.
+
+</li>
+</ul>
+<p>
+[15 October 2007]
+</p>
+<ul>
+<li>Make find_tagged_with correctly apply :conditions
+
+</li>
+<li>Add Tag.destroy_unused option.
+
+</li>
+</ul>
+<p>
+[11 October 2007]
+</p>
+<ul>
+<li>Make tag_counts work correctly with STI.
+
+</li>
+</ul>
+<p>
+[3 October 2007]
+</p>
+<ul>
+<li>Improve documentation.
+
+</li>
+<li>Fix <a href="../../../../classes/TagsHelper.html">TagsHelper</a> and test.
+
+</li>
+</ul>
+<p>
+[2 October 2007]
+</p>
+<ul>
+<li>Remove TagList.parse, use TagList.from instead.
+
+</li>
+<li>Add :parse option to <a
+href="../../../../classes/TagList.html#M000001">TagList#new</a>, <a
+href="../../../../classes/TagList.html#M000002">TagList#add</a>, and <a
+href="../../../../classes/TagList.html#M000003">TagList#remove</a>.
+
+<pre>
+  tag_list = TagList.new(&quot;One, Two&quot;, :parse =&gt; true) # [&quot;One&quot;, &quot;Two&quot;]
+
+  tag_list # [&quot;One&quot;, &quot;Two&quot;]
+  tag_list.add(&quot;Three, Four&quot;, :parse =&gt; true) # [&quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot;]
+</pre>
+</li>
+<li>Remove TagList#names.
+
+</li>
+</ul>
+<p>
+[29 September 2007]
+</p>
+<ul>
+<li>Add <a href="../../../../classes/TagsHelper.html">TagsHelper</a> to assist
+with generating tag clouds and provide a simple example.
+
+</li>
+</ul>
+<p>
+[27 September 2007]
+</p>
+<ul>
+<li>Add tag_counts method to get tag counts for a specific object&#8216;s tags.
+
+</li>
+<li>BACKWARDS INCOMPATIBILITY: Rename find_options_for_tagged_with to
+find_options_for_find_tagged_with
+
+</li>
+</ul>
+<p>
+[17 September 2007]
+</p>
+<ul>
+<li>Fix clearing of cached tag list when all tags removed.
+
+</li>
+</ul>
+<p>
+[12 September 2007]
+</p>
+<ul>
+<li>Make the <a href="../../../../classes/TagList.html">TagList</a> class
+inherit from Array.
+
+</li>
+<li>Deprecate obsolete TagList#names.
+
+</li>
+</ul>
+<p>
+[6 September 2007]
+</p>
+<ul>
+<li>Add TagList#include? and TagList#empty?
+
+</li>
+</ul>
+<p>
+[26 August 2007]
+</p>
+<ul>
+<li>Remove deprecated Tag.delimiter. Use TagList.delimiter instead.
+
+</li>
+</ul>
+<p>
+[25 August 2007]
+</p>
+<ul>
+<li>Make tag_counts work with has_many :through
+
+</li>
+</ul>
+<p>
+[23 August 2007]
+</p>
+<ul>
+<li>Make search comparisons case-insensitive across different databases.
+[Moisés Machado]
+
+</li>
+<li>Improve compatiblity with STI. [Moisés Machado]
+
+</li>
+</ul>
+<p>
+[25 July 2007]
+</p>
+<ul>
+<li>Respect custom table names for the <a
+href="../../../../classes/Tag.html">Tag</a> and Tagging classes.
+
+</li>
+<li>Fix the :exclude option for find_tagged_with
+
+</li>
+</ul>
+<p>
+[17 July 2007]
+</p>
+<ul>
+<li>Make the migration work on edge rails
+
+</li>
+</ul>
+<p>
+[8 July 2007]
+</p>
+<ul>
+<li>find_options_for_tagged_with should not alter its arguments
+
+</li>
+</ul>
+<p>
+[1 July 2007]
+</p>
+<ul>
+<li>Fix incorrect tagging when the case of the tag list is changed.
+
+</li>
+<li>Fix deprecated Tag.delimiter accessor.
+
+</li>
+</ul>
+<p>
+[23 June 2007]
+</p>
+<ul>
+<li>Add validation to <a href="../../../../classes/Tag.html">Tag</a> model.
+
+</li>
+<li>find_options_for_tagged_with should always return a hash.
+
+</li>
+<li>find_tagged_with passing in no tags should return an empty array.
+
+</li>
+<li>Improve compatibility with PostgreSQL.
+
+</li>
+</ul>
+<p>
+[21 June 2007]
+</p>
+<ul>
+<li>Remove extra .rb from generated migration file name.
+
+</li>
+</ul>
+<p>
+[15 June 2007]
+</p>
+<ul>
+<li>Introduce <a href="../../../../classes/TagList.html">TagList</a> class.
+
+</li>
+<li>Various cleanups and improvements.
+
+</li>
+<li>Use TagList.delimiter now, not Tag.delimiter. Tag.delimiter will be removed
+at some stage.
+
+</li>
+</ul>
+<p>
+[11 June 2007]
+</p>
+<ul>
+<li>Restructure the creation of the options for find_tagged_with [Thijs Cadier]
+
+</li>
+<li>Add an example migration with a generator.
+
+</li>
+<li>Add caching.
+
+</li>
+<li>Fix compatibility with Ruby &lt; 1.8.6
+
+</li>
+</ul>
+<p>
+[23 April 2007]
+</p>
+<ul>
+<li>Make tag_list to respect Tag.delimiter
+
+</li>
+</ul>
+<p>
+[31 March 2007]
+</p>
+<ul>
+<li>Add Tag.delimiter accessor to change how tags are parsed.
+
+</li>
+<li>Fix :include =&gt; :tags when used with find_tagged_with
+
+</li>
+</ul>
+<p>
+[7 March 2007]
+</p>
+<ul>
+<li>Fix tag_counts for SQLServer [Brad Young]
+
+</li>
+</ul>
+<p>
+[21 Feb 2007]
+</p>
+<ul>
+<li>Use scoping instead of TagCountsExtension [Michael Schuerig]
+
+</li>
+</ul>
+<p>
+[7 Jan 2007]
+</p>
+<ul>
+<li>Add :match_all to find_tagged_with [Michael Sheakoski]
+
+</li>
+</ul>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

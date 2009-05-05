@@ -1,0 +1,6 @@
+<span id="nb_tips_to_review">
+	<% if nb_opinions_to_review_for_product = current_user.nb_opinions_to_review_for_product(product) %>
+		(<%= pluralize(nb_opinions_to_review_for_product, "tip") %>) to 
+		<%= link_to_remote("review", :url => {:controller => "tips", :action => "review_tips", :product_id => product.id}) %>
+	<% end %>
+</span>

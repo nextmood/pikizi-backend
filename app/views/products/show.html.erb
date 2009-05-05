@@ -1,0 +1,22 @@
+
+
+<%= render(:partial => "/products/short", :locals => {:product => @product })%>
+
+<%= box_title %>
+	Description
+<%= box_content %>
+	<% if current_user and (true || @product.author_id == current_user.id) %>
+		<%= link_to("edit this product", edit_product_path(@product)) %>
+	<% end %>
+	
+	
+	
+	<div class="show_value" style="max-height:200px; width:770px; overflow:auto; margin-bottom:10px; border-top:1px solid black;  border-bottom:1px solid black;">
+		<%= @product.description %>
+	</div>
+	<h2>Features</h2>
+	<% for category, feature_roots in @product.get_feature_values_roots %>
+		<%= render(:partial => "/products/show_features", :locals => {:features => feature_roots, :display => "true", :dom_id => ""})%>
+	<% end %>
+			
+<%= box_end %>

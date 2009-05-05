@@ -1,0 +1,6 @@
+<% form_tag(add_new_default_feature_category_path(category), :class => "feature_definition_editor", :style => "width:700px;") do -%>
+	<%= text_field_tag :label_new_feature, Feature.default_label %>
+	<%= hidden_field_tag :feature_parent_id, feature_parent ? feature_parent.id : nil %>
+	<%= select_tag(:feature_type, options_from_collection_for_select(Feature.collection_4_select, "first", "last")) %>
+	<%= submit_tag "add feature" %>
+<% end -%>

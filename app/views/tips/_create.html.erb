@@ -1,0 +1,35 @@
+<!-- parameters:
+	product
+	question (new)
+	with_product_name
+	html_tag
+-->
+<<%= html_tag %> id="question_new">
+
+	<% if with_product_name %>
+		<b><%= product.label %></b>&nbsp;is&nbsp;
+	<% end %>
+
+	<% form_tag :controller => "dashboard", :action => "create_tip_step_2_1"  do -%>
+
+		<%= hidden_field_tag(:product_id , product.id) %>
+		<%= hidden_field_tag(:question_id ,  question.id) %>
+			
+		<%= text_area_tag(:label_genuine , question.label , :rows => 2, :cols => 53) %>
+		
+		<div style="margin-top:5px; position:relative;">
+			Answer:
+			<% for choice in question.choices %>
+				<%= radio_button_tag("choice_code_value", choice.code, choice.code == question.default_choice_code) %><%= choice_label %>&nbsp;&nbsp;
+			<% end %>
+
+			<%= link_to "add answer", "#", :style => "position:absolute; right:0px;", :onclick => "alert('not implemented yet')" %>
+		</div>
+	
+		<div style="text-align:center; margin-top:5px;"><%= submit_tag("Create Tip") %></div>
+	
+
+	
+	<% end -%>
+	
+</<%= html_tag %>>

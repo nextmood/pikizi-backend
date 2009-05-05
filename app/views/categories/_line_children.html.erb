@@ -1,0 +1,34 @@
+
+<tr id="line_children_category_<%= parent.id %>">
+	<td valign="top">
+		<div class="category_parent category_node" style="position:relative;"> 
+			<%= render(:partial => "/categories/icon", :locals => { :category => parent })%>
+			<% unless parent.is_first_level? %>
+				<div style="position:absolute; right:0px; top:0px; padding:2px;">
+      				<%= link_to_remote("up to<br/>#{parent.parent.label}", 
+										:url => {:controller => "search", :action => "up_one_category", :child_id => parent.id, :parent_id => parent.parent_id },
+										:html => {:style => "background-color:white;"}) %>
+      			</div>
+			<% end %>
+		</div>
+	</td>
+	<td valign="top">
+		<div class="category_children">
+			<div style="width:<%= parent.children.size * 92 %>px;">
+				<% for child in parent.children %>
+					<div class="category_child category_node" style="position:relative;"> 
+						<% if child.children.size > 0 %>
+							<%= link_to_remote(render(:partial => "/categories/icon", :locals => { :category => child }),
+					                        :url => {:controller => "search", :action => "change_category", :category_id => child.id }) %>
+						<% else %>
+							<%= link_to_remote(render(:partial => "/categories/icon", :locals => { :category => child }), 
+					                        :url => {:controller => "search", :action => "search_in_category", :category_id => child.id }) %>							
+							
+						<% end %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</td>
+</tr>
+

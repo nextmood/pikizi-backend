@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>vendor/plugins/acts_as_taggable_on_steroids/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sat Mar 14 15:06:16 +0100 2009</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>acts_as_taggable_on_steroids</h1>
+<p>
+If you find this plugin useful, please consider a donation to show your
+support!
+</p>
+<pre>
+  http://www.paypal.com/cgi-bin/webscr?cmd=_send-money
+
+  Email address: jonathan.viney@gmail.com
+</pre>
+<h2>Instructions</h2>
+<p>
+This plugin is based on acts_as_taggable by DHH but includes extras such as
+tests, smarter tag assignment, and tag cloud calculations.
+</p>
+<h2>Installation</h2>
+<pre>
+  ruby script/plugin install http://svn.viney.net.nz/things/rails/plugins/acts_as_taggable_on_steroids
+</pre>
+<h2>Usage</h2>
+<h3>Prepare database</h3>
+<p>
+Generate and apply the migration:
+</p>
+<pre>
+  ruby script/generate acts_as_taggable_migration
+  rake db:migrate
+</pre>
+<h3>Basic tagging</h3>
+<p>
+Let&#8216;s suppose users have many posts and we want those posts to have
+tags. The first step is to add <tt>acts_as_taggable</tt> to the Post class:
+</p>
+<pre>
+  class Post &lt; ActiveRecord::Base
+    acts_as_taggable
+
+    belongs_to :user
+  end
+</pre>
+<p>
+We can now use the tagging methods provided by acts_as_taggable,
+<tt>tag_list</tt> and <tt>tag_list=</tt>. Both these methods work like
+regular attribute accessors.
+</p>
+<pre>
+  p = Post.find(:first)
+  p.tag_list # []
+  p.tag_list = &quot;Funny, Silly&quot;
+  p.save
+  p.tag_list # [&quot;Funny&quot;, &quot;Silly&quot;]
+</pre>
+<p>
+You can also add or remove arrays of tags.
+</p>
+<pre>
+  p.tag_list.add(&quot;Great&quot;, &quot;Awful&quot;)
+  p.tag_list.remove(&quot;Funny&quot;)
+</pre>
+<h3>Finding tagged objects</h3>
+<p>
+To retrieve objects tagged with a certain tag, use find_tagged_with.
+</p>
+<pre>
+  Post.find_tagged_with('Funny, Silly')
+</pre>
+<p>
+By default, find_tagged_with will find objects that have any of the given
+tags. To find only objects that are tagged with all the given tags, use
+match_all.
+</p>
+<pre>
+  Post.find_tagged_with('Funny, Silly', :match_all =&gt; true)
+</pre>
+<p>
+See <tt><a
+href="../../../../classes/ActiveRecord/Acts/Taggable/InstanceMethods.html">ActiveRecord::Acts::Taggable::InstanceMethods</a></tt>
+for more methods and options.
+</p>
+<h3><a href="../../../../classes/Tag.html">Tag</a> cloud calculations</h3>
+<p>
+To construct tag clouds, the frequency of each tag needs to be calculated.
+Because we specified <tt>acts_as_taggable</tt> on the <tt>Post</tt> class,
+we can get a calculation of all the tag counts by using
+<tt>Post.tag_counts</tt>. But what if we wanted a tag count for an single
+user&#8216;s posts? To achieve this we call tag_counts on the association:
+</p>
+<pre>
+  User.find(:first).posts.tag_counts
+</pre>
+<p>
+A helper is included to assist with generating tag clouds. Include it in
+your helper file:
+</p>
+<pre>
+  module ApplicationHelper
+    include TagsHelper
+  end
+</pre>
+<p>
+You can also use the <tt>counts</tt> method on <tt><a
+href="../../../../classes/Tag.html">Tag</a></tt> to get the counts for all
+tags in the database.
+</p>
+<pre>
+  Tag.counts
+</pre>
+<p>
+Here is an example that generates a tag cloud.
+</p>
+<p>
+Controller:
+</p>
+<pre>
+  class PostController &lt; ApplicationController
+    def tag_cloud
+      @tags = Post.tag_counts
+    end
+  end
+</pre>
+<p>
+View:
+</p>
+<pre>
+  &lt;% tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class| %&gt;
+    &lt;%= link_to tag.name, { :action =&gt; :tag, :id =&gt; tag.name }, :class =&gt; css_class %&gt;
+  &lt;% end %&gt;
+</pre>
+<p>
+CSS:
+</p>
+<pre>
+  .css1 { font-size: 1.0em; }
+  .css2 { font-size: 1.2em; }
+  .css3 { font-size: 1.4em; }
+  .css4 { font-size: 1.6em; }
+</pre>
+<h3>Caching</h3>
+<p>
+It is useful to cache the list of tags to reduce the number of queries
+executed. To do this, add a column named <tt>cached_tag_list</tt> to the
+model which is being tagged. The column should be long enough to hold the
+full tag list and must have a default value of null, not an empty string.
+</p>
+<pre>
+  class CachePostTagList &lt; ActiveRecord::Migration
+    def self.up
+      add_column :posts, :cached_tag_list, :string
+    end
+  end
+
+  class Post &lt; ActiveRecord::Base
+    acts_as_taggable
+
+    # The caching column defaults to cached_tag_list, but can be changed:
+    #
+    # set_cached_tag_list_column_name &quot;my_caching_column_name&quot;
+  end
+</pre>
+<p>
+The details of the caching are handled for you. Just continue to use the
+tag_list accessor as you normally would. Note that the cached tag list will
+not be updated if you directly create Tagging objects or manually append to
+the <tt>tags</tt> or <tt>taggings</tt> associations. To update the cached
+tag list you should call <tt>save_cached_tag_list</tt> manually.
+</p>
+<h3>Delimiter</h3>
+<p>
+If you want to change the delimiter used to parse and present tags, set
+TagList.delimiter. For example, to use spaces instead of commas, add the
+following to config/environment.rb:
+</p>
+<pre>
+  TagList.delimiter = &quot; &quot;
+</pre>
+<h3>Unused tags</h3>
+<p>
+Set Tag.destroy_unused to remove tags when they are no longer being used to
+tag any objects. Defaults to false.
+</p>
+<pre>
+  Tag.destroy_unused = true
+</pre>
+<h3>Other</h3>
+<p>
+Problems, comments, and suggestions all welcome. jonathan.viney@gmail.com
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

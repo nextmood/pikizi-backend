@@ -1,0 +1,16 @@
+<!-- parameters:
+	tip
+	with_product_name
+	html_tag
+-->
+<<%= html_tag %> id="<%= tip_dom_id(tip.id) %>">
+
+	<% if with_product_name %>
+		<b><%= tip.product.label %></b>
+	<% end %>
+
+
+	<%= question_sentence(tip.choice.question, tip.choice) %>
+
+
+</<%= html_tag %>>

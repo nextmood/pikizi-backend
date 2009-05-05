@@ -1,0 +1,32 @@
+<%= box_title %>
+	Looking up in Amazon
+<%= box_content %>
+<h2>in <%= @category.path_without_root %></h2>
+<br/>
+<% form_tag "/search_amazon/#{@category.id}" do -%>
+    <%= text_field_tag 'query_string', (@query_string || "Enter your search query here"), {:size => 60} %>
+	<%= submit_tag 'Search' %>
+<% end -%>
+
+
+<% if @total_results %>
+	<br/><b><%= @total_results %> results: page <%= @item_page + 1 %> / <%= @total_pages %></b>
+<% end %>
+<% if @list_records %>
+	<ul style="padding-left: 0px; ">
+	<% for record in @list_records %>	
+		<li style="padding:2px; margin-bottom:10px; list-style:none;">
+			<%= link_to record[:title], "/search_amazon/#{@category.id}/#{record[:asin]}" %>				
+			<% if record[:manufacturer] %>
+				&nbsp;by <%= record[:manufacturer] %>
+			<% end %>
+			&nbsp;in <%= record[:product_group] %>
+
+			&nbsp;<a href="/<%= record[:detail_page_url] %>"><small>amazon</small></a>
+		</li>
+	<% end %>
+	</ul>
+<% end %>
+
+<%= box_end %>
+

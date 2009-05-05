@@ -1,0 +1,28 @@
+From 36c6a73f27f8a18f9e1b73420b60ff0d3b4d12be Mon Sep 17 00:00:00 2001
+From: Tom Lea <contrib@tomlea.co.uk>
+Date: Fri, 15 Aug 2008 17:13:11 +0100
+Subject: [PATCH] Prevented AR.reset_subclasses from killing existing instance's methods and class attributes.
+
+If we end up with large memory leaks in development, this commit may well be to blame, as it is expected to leak at least a little bit in development.
+
+This is a compromise, as removing the dynamically defined methods was causing all kinds on unexpected results in dev mode. See #1339 for details.
+---
+ activerecord/lib/active_record/base.rb |    2 --
+ 1 files changed, 0 insertions(+), 2 deletions(-)
+
+diff --git a/activerecord/lib/active_record/base.rb b/activerecord/lib/active_record/base.rb
+index dcc8277..57fdf07 100755
+--- a/activerecord/lib/active_record/base.rb
++++ b/activerecord/lib/active_record/base.rb
+@@ -406,8 +406,6 @@ module ActiveRecord #:nodoc:
+           nonreloadables << klass
+           next
+         end
+-        klass.instance_variables.each { |var| klass.send(:remove_instance_variable, var) }
+-        klass.instance_methods(false).each { |m| klass.send :undef_method, m }
+       end
+       @@subclasses = {}
+       nonreloadables.each { |klass| (@@subclasses[klass.superclass] ||= []) << klass }
+-- 
+1.6.0.1
+

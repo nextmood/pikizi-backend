@@ -1,0 +1,30 @@
+<% for feature in features %>
+	<% feature_value = feature.feature_values.first %>
+	<tr>
+		<td style="padding-left:<%= depth * 20 %>px; width:100px;">
+			<%= render(:partial => "features/show", :locals => { :feature => feature })%>
+		</td>
+		<!-- attribute editor -->
+		<td >
+			<%= render(:partial => "feature_values/form", :locals => { :feature_value => feature_value })%>
+		</td>
+		<!-- rating editor -->
+		<td>
+			<%= ratings_for(feature_value, current_user, :dimension => :user, :small_stars => true, 
+				:remote_options => {:method => :post, :url => rate_feature_value_path(feature_value.id)}) %>
+		</td>
+		<!-- media editor -->
+		<td>
+			<%= render(:partial => "/main/media_editor", :locals => { :title => "media", :ar_object => feature_value }) %>
+		</td>
+	</tr>
+	<!-- display sub attributes -->
+	<% if feature.node_children.size > 0 %>
+		<%= render(:partial => "/products/feature_values", :locals => {:features => feature.node_children, :depth => depth + 1}) %>
+	<% end %>
+<% end %>
+
+
+	
+	
+	

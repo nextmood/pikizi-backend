@@ -1,0 +1,7 @@
+
+<!-- in place editor for tag label -->
+<% dom_id = "#{tag_dom_id(tag.id)}_label" %>
+<b id="<%= dom_id %>"><%= tag.label %></b>
+<%= in_place_editor(dom_id, :url => "/tags/set_tag_label/#{tag.id}") %>
+	
+

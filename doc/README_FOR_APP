@@ -1,0 +1,24 @@
+= Pikizi
+An interactive Quiz sale advisor fed by a mash-up of all products's reviews available on the internet.
+
+== the pikizi server (this doc @ http://wikismo.com/doc/app/index.html)
+it fullfills 2 needs
+* manage a set of Category, Product, Feature, Question, Review, Recommendation, etc..., also named "wiki-product", "knowledge base", "datamodel"
+* populate the wiki-product with data extracted from reviews of products
+
+== the df_engine server (see http://engine.wikismo.com/doc/app/index.html)
+provides an interactive Quiz (a sequence of Question) to Voter. The sequence of question is computed in real time on a per Voter basis, using data mining algorithms
+
+= Process
+1. describe a Category of Product with a collection of Feature and FeatureValue
+2. create Review objects related to Product either through crowd sourcing users/bloggers and/or robots
+3. the ReviewsParser takes Review objects and generate  FeatureReview objects (and eventually new/updated Feature, FeatureValue objects)
+4. review and supervise the ReviewsParser results
+5. detect statistical correlation among Choice / values (business user == push email + good keyboard)
+6. the QuestionsGenerator produces Question, Choice and Recommendation objects
+7. user create questions (QuestionTip, QuestionPoll or QuestionFeature) or update/complete the previously generated questions
+8. the QuizEngineProxy updates the pikizi_engine with updated Question, Choice, Product, Recommendation, etc... and retrieves all "data mined", like cluster of Voter, ranking of Question, correlation among questions, etc...
+
+= See also
+* to regenerate doc, use rake doc:reapp (syntax -> http://rdoc.sourceforge.net/doc/)
+* "AI libraries":http://web.media.mit.edu/~dustin/papers/ai_ruby_plugins for ruby

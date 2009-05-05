@@ -1,0 +1,27 @@
+<% if categories.size > 0 %>
+<ul  style="list-style-type: none; margin-top:5px; margin-left: 0px; padding-left: 1.5em; text-indent: -1.5em;">
+<% for category in categories %>
+	<li>
+		<table border=1>
+			<tr>
+				<td>
+					<%= render(	:partial => "/main/media_edit", :locals => {
+									:ar_object => category, 
+					    			:timestamp => nil,
+					    			:display_thumbnail => true,
+					    			:display_editor =>  false}) %>
+				</td>
+				<td valign="top">
+					<%= category.label %>
+					<br/>
+					<%= category.products_genuine.size %> products, 
+					<%= category.questions_genuine.size %> questions, 
+					<%= link_to("#{category.features_genuine.size} features", features_category_path(category)) %> 
+				</td>
+			</tr>
+		</table>
+		<%= render(:partial => "categories/categories", :locals => {:categories => category.children})%>
+	</li>
+<% end %>
+</ul>
+<% end %>

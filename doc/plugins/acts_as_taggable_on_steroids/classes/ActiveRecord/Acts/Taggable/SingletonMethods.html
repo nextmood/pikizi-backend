@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ActiveRecord::Acts::Taggable::SingletonMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ActiveRecord::Acts::Taggable::SingletonMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable_rb.html">
+                vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000018">caching_tag_list?</a>&nbsp;&nbsp;
+      <a href="#M000015">find_options_for_find_tagged_with</a>&nbsp;&nbsp;
+      <a href="#M000017">find_options_for_tag_counts</a>&nbsp;&nbsp;
+      <a href="#M000013">find_related_tags</a>&nbsp;&nbsp;
+      <a href="#M000014">find_tagged_with</a>&nbsp;&nbsp;
+      <a href="#M000016">tag_counts</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">caching_tag_list?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 139</span>
+139:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">caching_tag_list?</span>
+140:           <span class="ruby-identifier">column_names</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cached_tag_list_column_name</span>)
+141:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="#M000015" class="method-signature">
+          <span class="method-name">find_options_for_find_tagged_with</span><span class="method-args">(tags, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000015-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000015-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 69</span>
+69:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_options_for_find_tagged_with</span>(<span class="ruby-identifier">tags</span>, <span class="ruby-identifier">options</span> = {})
+70:           <span class="ruby-identifier">tags</span> = <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">TagList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_s</span>)) <span class="ruby-operator">:</span> <span class="ruby-constant">TagList</span>.<span class="ruby-identifier">from</span>(<span class="ruby-identifier">tags</span>)
+71:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">dup</span>
+72:           
+73:           <span class="ruby-keyword kw">return</span> {} <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">empty?</span>
+74:           
+75:           <span class="ruby-identifier">conditions</span> = []
+76:           <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sanitize_sql</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:conditions</span>)) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>]
+77:           
+78:           <span class="ruby-identifier">taggings_alias</span>, <span class="ruby-identifier">tags_alias</span> = <span class="ruby-node">&quot;#{table_name}_taggings&quot;</span>, <span class="ruby-node">&quot;#{table_name}_tags&quot;</span>
+79:           
+80:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:exclude</span>)
+81:             <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\#{table_name}.id NOT IN\n(SELECT \#{Tagging.table_name}.taggable_id FROM \#{Tagging.table_name}\nINNER JOIN \#{Tag.table_name} ON \#{Tagging.table_name}.tag_id = \#{Tag.table_name}.id\nWHERE \#{tags_condition(tags)} AND \#{Tagging.table_name}.taggable_type = \#{quote_value(base_class.name)})\n&quot;</span>
+82:           <span class="ruby-keyword kw">else</span>
+83:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:match_all</span>)
+84:               <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;(SELECT COUNT(*) FROM \#{Tagging.table_name}\nINNER JOIN \#{Tag.table_name} ON \#{Tagging.table_name}.tag_id = \#{Tag.table_name}.id\nWHERE \#{Tagging.table_name}.taggable_type = \#{quote_value(base_class.name)} AND\ntaggable_id = \#{table_name}.id AND\n\#{tags_condition(tags)}) = \#{tags.size}\n&quot;</span>
+85:             <span class="ruby-keyword kw">else</span>
+86:               <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">tags_condition</span>(<span class="ruby-identifier">tags</span>, <span class="ruby-identifier">tags_alias</span>)
+87:             <span class="ruby-keyword kw">end</span>
+88:           <span class="ruby-keyword kw">end</span>
+89:           
+90:           { <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;DISTINCT #{table_name}.*&quot;</span>,
+91:             <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;INNER JOIN #{Tagging.table_name} #{taggings_alias} ON #{taggings_alias}.taggable_id = #{table_name}.#{primary_key} AND #{taggings_alias}.taggable_type = #{quote_value(base_class.name)} &quot;</span> <span class="ruby-operator">+</span>
+92:                       <span class="ruby-node">&quot;INNER JOIN #{Tag.table_name} #{tags_alias} ON #{tags_alias}.id = #{taggings_alias}.tag_id&quot;</span>,
+93:             <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; AND &quot;</span>)
+94:           }.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">options</span>)
+95:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">find_options_for_tag_counts</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 117</span>
+117:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_options_for_tag_counts</span>(<span class="ruby-identifier">options</span> = {})
+118:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">dup</span>
+119:           <span class="ruby-identifier">scope</span> = <span class="ruby-identifier">scope</span>(<span class="ruby-identifier">:find</span>)
+120:           
+121:           <span class="ruby-identifier">conditions</span> = []
+122:           <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:sanitize_conditions</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:conditions</span>)) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>]
+123:           <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">:sanitize_conditions</span>, <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:conditions</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scope</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:conditions</span>]
+124:           <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{Tagging.table_name}.taggable_type = #{quote_value(base_class.name)}&quot;</span>
+125:           <span class="ruby-identifier">conditions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">type_condition</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">descends_from_active_record?</span> 
+126:           <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">compact!</span>
+127:           <span class="ruby-identifier">conditions</span> = <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; AND &quot;</span>)
+128:           
+129:           <span class="ruby-identifier">joins</span> = [<span class="ruby-node">&quot;INNER JOIN #{table_name} ON #{table_name}.#{primary_key} = #{Tagging.table_name}.taggable_id&quot;</span>]
+130:           <span class="ruby-identifier">joins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">:joins</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:joins</span>]
+131:           <span class="ruby-identifier">joins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:joins</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">scope</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">scope</span>[<span class="ruby-identifier">:joins</span>]
+132:           <span class="ruby-identifier">joins</span> = <span class="ruby-identifier">joins</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)
+133:           
+134:           <span class="ruby-identifier">options</span> = { <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">conditions</span>, <span class="ruby-identifier">:joins</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">joins</span> }.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">options</span>)
+135:           
+136:           <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">options_for_counts</span>(<span class="ruby-identifier">options</span>)
+137:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">find_related_tags</span><span class="method-args">(tags, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an array of related tags. Related tags are all the other tags that
+are found on the models tagged with the provided tags.
+</p>
+<p>
+Pass either a tag, string, or an array of strings or tags.
+</p>
+<p>
+Options:
+</p>
+<pre>
+  :order - SQL Order how to order the tags. Defaults to &quot;count DESC, tags.name&quot;.
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 39</span>
+39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_related_tags</span>(<span class="ruby-identifier">tags</span>, <span class="ruby-identifier">options</span> = {})
+40:           <span class="ruby-identifier">tags</span> = <span class="ruby-identifier">tags</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">TagList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">tags</span>.<span class="ruby-identifier">map</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">:to_s</span>)) <span class="ruby-operator">:</span> <span class="ruby-constant">TagList</span>.<span class="ruby-identifier">from</span>(<span class="ruby-identifier">tags</span>)
+41:           
+42:           <span class="ruby-identifier">related_models</span> = <span class="ruby-identifier">find_tagged_with</span>(<span class="ruby-identifier">tags</span>)
+43:           
+44:           <span class="ruby-keyword kw">return</span> [] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">related_models</span>.<span class="ruby-identifier">blank?</span>
+45:           
+46:           <span class="ruby-identifier">related_ids</span> = <span class="ruby-identifier">related_models</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">:db</span>)
+47:           
+48:           <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>({
+49:             <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{Tag.table_name}.*, COUNT(#{Tag.table_name}.id) AS count&quot;</span>,
+50:             <span class="ruby-identifier">:joins</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;JOIN #{Tagging.table_name} ON #{Tagging.table_name}.taggable_type = '#{base_class.name}'
+51:               AND  #{Tagging.table_name}.taggable_id IN (#{related_ids})
+52:               AND  #{Tagging.table_name}.tag_id = #{Tag.table_name}.id&quot;</span>,
+53:             <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:order</span>] <span class="ruby-operator">||</span> <span class="ruby-node">&quot;count DESC, #{Tag.table_name}.name&quot;</span>,
+54:             <span class="ruby-identifier">:group</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{Tag.table_name}.id, #{Tag.table_name}.name HAVING #{Tag.table_name}.name NOT IN (#{tags.map { |n| quote_value(n) }.join(&quot;,&quot;)})&quot;</span>
+55:           }))
+56:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="#M000014" class="method-signature">
+          <span class="method-name">find_tagged_with</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Pass either a tag, string, or an array of strings or tags.
+</p>
+<p>
+Options:
+</p>
+<pre>
+  :exclude - Find models that are not tagged with the given tags
+  :match_all - Find models that match all of the given tags, not just one
+  :conditions - A piece of SQL conditions to add to the query
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000014-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000014-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 64</span>
+64:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_tagged_with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+65:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">find_options_for_find_tagged_with</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+66:           <span class="ruby-identifier">options</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-value">? </span>[] <span class="ruby-operator">:</span> <span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">options</span>)
+67:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="#M000016" class="method-signature">
+          <span class="method-name">tag_counts</span><span class="method-args">(options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Calculate the tag counts for all tags.
+</p>
+<p>
+See <a href="../../../Tag.html#M000010">Tag.counts</a> for available
+options.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000016-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000016-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/acts_as_taggable_on_steroids/lib/acts_as_taggable.rb, line 113</span>
+113:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tag_counts</span>(<span class="ruby-identifier">options</span> = {})
+114:           <span class="ruby-constant">Tag</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">find_options_for_tag_counts</span>(<span class="ruby-identifier">options</span>))
+115:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

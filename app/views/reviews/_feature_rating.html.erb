@@ -1,0 +1,9 @@
+<% fr_rating = feature_review.rating %>
+<span id="set_rating_feature_review_<%= feature_review.id %>">
+<%= link_to_remote(image_tag("icons/feature_hot.png", :border => (fr_rating and (fr_rating > 0.9)) ? 2 : 0),
+ 		:url => "/set_rating_feature_review/#{feature_review.id}/ok") %>
+<%= link_to_remote(image_tag("icons/feature_neutral.png", :border => (fr_rating and (fr_rating == 0.0)) ? 2 : 0), 
+		:url => "/set_rating_feature_review/#{feature_review.id}/oo") %>
+<%= link_to_remote(image_tag("icons/feature_trash.png", :border => (fr_rating and (fr_rating < -0.9)) ? 2 : 0), 
+		:url => "/set_rating_feature_review/#{feature_review.id}/ko") %>
+</span>

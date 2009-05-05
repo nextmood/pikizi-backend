@@ -1,0 +1,33 @@
+<!-- header of a question feature, the caller should call box_end -->
+
+<% question = nil unless !local_assigns[:question].nil? %> 
+<% category = question.category unless !local_assigns[:category].nil? %> 
+
+<!-- title -->
+<%= render(:partial => "/questions/choice_title", 
+		:locals => {:label => "Trade-Off Question", :category => category, :question => question })%>
+
+
+<!-- header -->
+<% if question %>
+	<div style="border-bottom:1px solid black; margin-bottom:10px;">
+		<%= feature_value_html(question.feature_value_1) %> vs <%= feature_value_html(question.feature_value_2) %>
+	</div>
+<% else %>
+	<% form_tag "/categories/#{category.id}/add_new_default_question", :id => "editor_tradeoff", :style => "text-align:center;" do -%>		
+		compare two products/features<br/>
+		<%= hidden_field_tag(:question_type, "tradeoff") %>
+		<%= select_tag(:product_1_id, options_from_collection_for_select(category.products_genuine, "id", "label"), :id => "select_product", :style => "width:210px;") %>
+		on
+		<%= select_tag(:feature_1_id, options_from_collection_for_select(category.features_availables, "first", "last"), :id => "select_feature", :style => "width:210px;") %>
+		<div>vs</div>
+		<%= select_tag(:product_2_id, options_from_collection_for_select(category.products_genuine, "id", "label"), :id => "select_product", :style => "width:210px;") %>
+		on
+		<%= select_tag(:feature_2_id, options_from_collection_for_select(category.features_availables, "first", "last"), :id => "select_feature", :style => "width:210px;") %>
+		<% unless question %>
+			<div><%= link_to_function("proceed", "document.getElementById('editor_tradeoff').submit();")%></div>
+		<% end %>
+	<% end -%>
+<% end %>
+
+<!-- editor when question -->

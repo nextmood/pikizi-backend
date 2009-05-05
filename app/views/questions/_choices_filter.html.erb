@@ -1,0 +1,54 @@
+<!-- can only be call with a question object -->
+
+<!-- title  + header -->
+<%= render(:partial => "/questions/create_filter", 
+		:locals => {:category => question.category, :question => question })%>
+
+<!-- edit fields of question -- >
+<div class="question_box">	
+	<%= ar_field_editor(question, "label", "<b>Question</b>'s label", :size => 60 ) %>
+	<%= ar_field_editor(question, "tag_list", "Question's tags", :size => 60 ) %>
+	<%= ar_field_editor(question, "extract", "Question's description", :cols => 60, :rows => 4 ) %>
+	<%= render(:partial => "/main/media_editor", :locals => { :title => "media", :ar_object => question }) %>
+	<%= render(:partial => "/main/image_editor", :locals => { :title => "background image", :ar_object => question }) %>
+	<%= render(:partial => "/questions/choice_multiple_add", :locals => { :question => question, :extra_html =>  link_to("match products", "/questions/compute_tips/#{question.id}", :style => "font-size:80%;") }) %>	
+</div>
+
+<!-- edit fields of choices -- >
+<% for choice_filter in question.choices %>
+	<div class="choice_box">
+		
+		<!-- choice's label -->
+		<%= ar_field_editor(choice_filter, "label", "<b>Choice</b>'s label", :size => 60 ) %>
+		
+		<!-- choice's background description -->
+		<%= ar_field_editor(choice_filter, "extract", "Choice's description", :cols => 60, :rows => 4 ) %>
+		
+		<!-- choice's background media -->
+		<%= render(:partial => "/main/media_editor", :locals => { :title => "media", :ar_object => choice_filter }) %>
+		
+		<!-- choice's background image -->
+		<%= render(:partial => "/main/image_editor", :locals => { :title => "thumbnail image", :ar_object => choice_filter }) %>
+		
+		<!-- delete this choice-->
+		<%= link_to("delete this choice", "/remove_choice/#{choice_filter.id}") %>
+		
+		
+		<!-- number of product matching -->
+		<small style="">
+			<b><%= choice_filter.tips.size %> products matching:</b>
+			<%= choice_filter.tips.first(3).collect {|t| t.product.label }.join(', ') %>
+			<%= ", ..." if choice_filter.tips.size > 3 %>
+		</small>
+					
+		<!-- edit the filters for this choice -->					
+		<% for product_filter in choice_filter.product_filters %>
+			<%= render(:partial => "product_filters/edit", 
+				:locals => {:product_filter => product_filter, :display_name => false, :allow_remove => false})%>
+		<% end %>
+
+
+	</div>
+<% end %>
+
+<%= box_end %>

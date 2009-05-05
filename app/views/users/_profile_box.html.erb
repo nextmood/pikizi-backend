@@ -1,0 +1,44 @@
+<% is_draggable = nil unless !local_assigns[:is_draggable].nil? %>
+
+<% if logged_in? -%>
+	<%= box_title %>
+		welcome <%= current_user.name %>
+	<%= box_content "style=\"height:100px;\"" %>
+		<%= image_tag "/users/#{current_user.id}/thumbnail.jpg", :align => "left" %>
+		<%= link_to_current_user :content_method => :login %>
+		<%= as_stars(current_user.weight) %>
+		<%= link_to('[Administrator\'s menu]', '/admin') if User.check_role(current_user, "administrator") %>
+		<br/>Authored:
+		<%= pluralize(current_user.authored_questions.size , "question") %>,
+		<%= pluralize(current_user.authored_reviews.size, "review") %>,
+		<%= pluralize(current_user.authored_products.size, "product") %>
+	<%= box_end %>
+	
+	<%= box_title %>
+		Album
+	<%= box_content "style=\"height:200px;\"" %>
+		<% form_remote_tag(:url => "/wishlists/search", 
+							:html => {:style => "display:inline;"}) do -%>
+			<%= text_field_tag "search_text", "search a product", :style => "width:190px;" %>
+			<%= submit_tag "ok" %>
+		<% end -%>
+		<div class="dropzone_list" id="current_wish_list" style="min-height:150px; width:250px; margin-top:5px;">
+			<%= render(:partial => "/wishlists/album", :locals => {:owner => current_user })%>
+		</div>
+	<%= box_end %>
+	
+<% else -%>
+  	<%= box_title %>
+		sign up
+  	<%= box_content %>
+		Why PiKiZi?
+		<ul  style="padding-left: 20px;">
+			<li>expert tips </li>
+			<li>personalized</li>
+			<li>graded &amp; ranked</li>
+		</ul>
+		<%= link_to "sign up now", signup_path, { :title => "Create an account" } %>
+  	<%= box_end %>
+<% end -%>
+
+

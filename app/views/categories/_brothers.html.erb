@@ -1,0 +1,5 @@
+<table> 
+	<% for parent in category.children %>
+		<%= render(:partial => "categories/line_children", :locals => {:parent => parent} )%>
+	<% end %>
+</table>

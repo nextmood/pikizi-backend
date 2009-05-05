@@ -1,0 +1,15 @@
+<br/>
+<%= f.error_messages %>
+<p><%= f.label :login %><%= f.text_field :login, :size => 30 %></p>
+<p><%= f.label :name %><%= f.text_field :name, :size => 60 %></p>
+<p><%= f.label :email %><%= f.text_field :email, :size => 30 %></p>
+<p><%= f.label :password %><%= f.password_field :password, :size => 30 %></p>
+<p><%= f.label :password_confirmation, 'Confirm Password' %>  <%= f.password_field :password_confirmation, :size => 30 %></p>
+<p><%= f.label :expert_in_category_id, 'Expert in Category' %>  <%= categories_selector("user", "expert_in_category_id") %></p>
+<p>
+	<% if user.id %>
+		<%= image_tag "/users/#{user.id}/thumbnail.jpg" %>
+	<% end %>
+	<%= f.label :image_file, "Upload Image" %>  :<%= f.file_field :image_file %>
+</p>	
+

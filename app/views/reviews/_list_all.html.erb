@@ -1,0 +1,26 @@
+<ul style="margin-left:10px;">
+<% for category, products, sub_reviews_per_category_product in reviews_per_category_product %>
+	<li>
+		Category= <%= category.label %>
+		<% if products.size > 0 %>
+			<ul>
+			<% for product, reviews in products %>
+				
+				<li>Product=<%= product.label %></li>
+				<ul>
+				<% for review in reviews %>
+					<li>Review by=<%= review.author.screen_name %></li>
+					<div>
+						<%= review.to_xml %>
+					</div>
+				<% end %>
+				</ul>			
+			<% end %>
+			</ul>
+		<% end %>
+		<% if sub_reviews_per_category_product.size > 0 %>
+			<%= render(:partial => "/reviews/list_all", :locals => {:reviews_per_category_product => sub_reviews_per_category_product })%>
+		<% end %>
+	</li>	
+<% end %>
+<ul>

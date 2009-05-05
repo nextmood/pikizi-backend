@@ -1,0 +1,64 @@
+<%= box_title %>
+Dashboard
+<%= box_content %>
+
+<br/>
+<!-- Dasboard menu -->
+<h2>Model & Categories</h2>
+<ul class="dashboard_menu">
+	<li><%= link_to("manage categories", "/dashboard/categories_edition") %></li>
+	<li>
+		<% form_tag "/dashboard/category/features_edition", :id => 'form_edit_model' do -%>
+			manage model's features for
+		    <%= select_tag(:category_id, options_from_collection_for_select(Category.root.self_and_descendants[1..10000], "id", "path_with_nb_features", @expert_in_category_id)) %>
+			<%= link_to_function("go", "document.getElementById('form_edit_model').submit();") %>
+		<% end -%>
+	</li>
+</ul>
+
+<h2>Product Catalog</h2>
+<ul class="dashboard_menu">
+	<li>
+		<% form_tag "/dashboard/category/product_creation", :id => 'form_create_product' do -%>
+			create product (from <%= check_box_tag(:from_amazon, "1", true) %> amazon) in 
+		    <%= select_tag(:category_id, options_from_collection_for_select(Category.root.self_and_descendants[1..10000], "id", "path_with_nb_products",  @expert_in_category_id)) %>
+			<%= link_to_function("go", "document.getElementById('form_create_product').submit();") %>			
+		<% end -%>
+	</li>
+	<li><%= link_to("edit product content & features", "/dashboard/choose_product_for/product_edition") %></li>
+	<li>
+		<% form_tag "/dashboard/category/matrix_products", :id => 'form_matrix_products' do -%>
+			matrix for
+		    <%= select_tag(:category_id, options_from_collection_for_select(Category.root.self_and_descendants[1..10000], "id", "path_with_nb_products",  @expert_in_category_id)) %>
+			<%= link_to_function("go", "document.getElementById('form_matrix_products').submit();") %>			
+		<% end -%>
+	</li>
+	<li><%= link_to("edit reviews and ratings", "/dashboard/choose_product_for/reviews_edition") %></li>
+	<li>product rankings and relative distance</li>
+	<li>sponsored results & merchandising</li>
+</ul>
+
+<h2>Content Management</h2>
+<ul class="dashboard_menu">
+	<li>
+		<% form_tag "/dashboard/category/questions_edition", :id => 'form_question_edition' do -%>
+			manage questions for
+		    <%= select_tag(:category_id, options_from_collection_for_select(Category.root.self_and_descendants[1..10000], "id", "path_with_nb_questions", @expert_in_category_id)) %>
+			<%= link_to_function("go", "document.getElementById('form_question_edition').submit();") %>			
+		<% end -%>
+	</li>
+	<li><%= link_to("configure quiz", quizzes_path)%></li>
+</ul>
+
+<h2>Reporting</h2>
+<ul class="dashboard_menu">
+	<li>create/edit</li>
+</ul>
+
+<h2>APIs and mass imports/exports</h2>
+<ul class="dashboard_menu">
+	<li><%= link_to_function("export database...", "alert('not available')")%></li>
+</ul>
+<%= box_end %>
+
+

@@ -1,0 +1,5 @@
+mysql -u root --password='lesp0ules0feu'
+DROP DATABASE IF EXISTS `pikizi_production`;
+CREATE DATABASE `pikizi_production`;
+mysql -u root --password='lesp0ules0feu' pikizi_production < pikizi_development.sql
+./script/server -e production -p 1776 --daemon

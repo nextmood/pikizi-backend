@@ -1,0 +1,91 @@
+<script>
+function show_more(question_id)
+{
+	more_choices = document.getElementsByName('more_stat_' + question_id);
+	for (x in more_choices)
+	{
+		more_choices[x].toggle();
+	}
+	return true;
+}
+</script>
+
+<%= box_title %>
+	Statistic for <%= @quiz.label %> 
+	
+<%= box_content %>
+	<div style="margin-bottom:10px;">
+	played <%= @stats[:nb_quiz_instances] %> times by <%= @stats[:nb_users] %> users for <%= @stats[:nb_answers] %> answers (<%= "%4.1f" % (@stats[:nb_answers].to_f / @stats[:nb_quiz_instances].to_f) %> answers/quiz)
+	<%= link_to("refresh", stats_from_engine_quiz_path(@quiz)) %>&nbsp;
+	<%= link_to("start quizz", "#{ENGINE_URL}/new_quiz/K32445/#{@quiz.id}") %>
+	</div>
+	<table CELLSPACING="4">
+	<tr>
+		<th align="left">Questions</th>
+		<td>ranking&nbsp;</td>
+		<td>answers&nbsp;</td>
+		<td>popularity&nbsp;</td>
+		<td>discrimination&nbsp;</td>
+		<td>interest&nbsp;</td>
+		<td>confidence</td>
+	</tr>
+	<% for stats_question in @stats[:question_stats] %>
+		<tr>
+			<% question_key = stats_question[:question_key] %>
+			<td width=300 align="left">
+				<%= Question.find(question_key).label %>
+				<%= link_to_function("more...", "show_more(#{question_key});") %>
+			</td>
+			<td align="center">#<%= stats_question[:ranking] %></td>
+			<td align="center"><%= stats_question[:nb_answers] %></td>
+			<td align="center"><%= "%d" % (stats_question[:popularity] * 100) %>%</td>
+			<td align="center"><%= "%d" % (stats_question[:discrimination] * 100) %>%</td>
+			<td align="center"><%= "%d" % (stats_question[:interest] * 100) %>%</td>
+			<td align="center"><%= "%d" % (stats_question[:confidence] * 100) %>%</td>
+		    
+		</tr>
+		<% for stats_choice in stats_question[:choices] %>
+			<% ch_k = stats_choice[:choice_key] %>
+			<% raise "#{stats_choice.inspect}" unless ch_k %>
+			<tr name="more_stat_<%= question_key %>" style="display:none;">
+				<td align="right"><%= ch_k == 0 ? 'no opinion' : Choice.find(ch_k).label %></td>
+				<td align="center">#<%= stats_choice[:ranking] %></td>
+				<td align="center">
+					<%= stats_choice[:nb_votes] %>=
+					<small><%= as_percentage(stats_choice[:nb_votes], stats_question[:nb_answers]) %></small>
+				</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		<% end %>
+	<% end %>
+	</table>
+	
+	<table CELLSPACING="4">
+	<tr>
+		<th align="left">Products</th>
+		<td>ranking</td>
+		<td>popularity</td>
+		<td>buy</td>
+		<td>details</td>
+		<td>rejected</td>
+		<td>selected</td>
+	</tr>
+	<% for stats_product in @stats[:product_stats] %>
+		<tr>
+			<td width=300 align="left">
+				<%= Product.find(stats_product[:product_key]).label %>
+			</td>
+			<td align="center">#<%= stats_product[:ranking] %></td>
+			<td align="center"><%= stats_product[:popularity] %></td>
+			<td align="center"><%= stats_product[:nb_buy] %></td>
+			<td align="center"><%= stats_product[:nb_details] %></td>	 
+			<td align="center"><%= stats_product[:nb_rejected] %></td>	 
+			<td align="center"><%= stats_product[:nb_selected] %></td>	    
+		</tr>
+	<% end %>
+	</table>
+	
+<%= box_end %>

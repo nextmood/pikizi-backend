@@ -1,0 +1,9 @@
+
+<%= render(:partial => "products/form", :locals => { :product => @product, :from_amazon => nil }) %>
+	
+<div style="width:100%; background-color:pink; text-align:center; margin-top:10px;">
+	<%= link_to("remove from Pikizi's catalog<br/><b>#{@product.label}</b>", "/products/#{@product.id}", :confirm => "sure?", :method => :delete)%>
+</div>
+
+
+

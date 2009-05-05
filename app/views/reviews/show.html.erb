@@ -1,0 +1,20 @@
+
+<%= render(:partial => "/products/short", :locals => {:product => @review.product})%>
+
+<%= box_title %>
+	User's review&nbsp;<%= link_to("edit...", edit_review_path(@review), :style => "font-weight:normal; font-size:small;") %>
+<%= box_content %>
+	<%= render(:partial => "/reviews/short", :locals => {:review => @review, :link_more => false }) %>
+	
+<!-- Product review  features-->
+
+
+<% for category, feature_roots in @review.get_feature_reviews_roots %>
+	<% if feature_roots.size > 0 %>
+		<div class="feature_category"><%= category.label %>&nbsp;features</div>
+		<%= render(:partial => "/reviews/feature_show", :locals => {:features => feature_roots, :display => 'true', :dom_id => ""})%>
+	<% end %>
+<% end %>
+
+<%= box_end %>
+

@@ -1,0 +1,26 @@
+<% form_tag "/feature_review/#{feature_review.id}" do -%>
+
+<table id="compare_feature_review_<%= feature_review.id %>" style="display:<%= display %>; border:1px solid black; margin:10px; padding:5px;">
+	<tr><td colspan="2">Compare with other products<small>&nbsp;(multiple products separated by commas)</small></td></tr>
+	<tr>
+		<td>Better than</td>
+		<td>
+			<%= text_field_tag :toto, "", :size => 40 %>	
+		</td>
+	</tr>
+	<tr>
+		<td>Same as</td>
+		<td><%= text_field_tag :toto, "", :size => 40 %></td>
+	</tr>
+	<tr>
+		<td>Worse than</td>
+		<td><%= text_field_tag :toto, "", :size => 40 %></td>
+	</tr>
+	<tr>
+		<td>Except </td>
+		<td><%= text_area_tag :toto, "", :size => "35x2" %></td>
+	</tr>
+	<tr><td colspan="2"><%= submit_tag 'Validate' %></td></tr>
+</table>
+
+<% end -%>

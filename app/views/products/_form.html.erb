@@ -1,0 +1,44 @@
+
+<div class="features">
+	<%= box_title %><%= box_content %>
+	<div class="feature_category">General&nbsp;features</div>	
+	
+	<div class="feature_editor">
+		<%= label_tag :image, nil, :class => "feature_label" %>
+		<%= render(	:partial => "/main/media_edit", :locals => {
+						:ar_object => product, 
+		    			:timestamp => nil,
+		    			:display_thumbnail => true,
+		    			:display_editor =>  false}) %>
+	</div>
+	
+	<div class="feature_editor">
+		<%= label_tag :label, nil, :class => "feature_label" %>
+		<span class="editable_value"><%= in_place_editor_field :product, 'label', {}, {:size => 60 } %></span>
+		<small>in <%= product.category.path_without_root %></small>
+	</div>
+	<div class="feature_editor">
+		<%= label_tag :url, nil, :class => "feature_label" %>
+		<% product.url = "enter an url" unless product.url %>
+		<div class="editable_value" style="overflow:hidden;"><%= in_place_editor_field :product, 'url', {}, {:size => 60} %></div>
+	</div>
+	<div class="feature_editor">
+		<%= label_tag :description, nil, :class => "feature_label" %>
+		<% product.description = "enter a description..." unless product.description %>
+		<div class="editable_value" style="max-height:200px; width:770px; overflow:auto; margin-bottom:10px;">
+			<%= in_place_editor_field :product, 'description', {}, {:rows => 5, :cols => 90} %>
+		</div>
+	</div>
+	
+	<!--	The wiki feature value editor for a given product -->
+	<% for category, feature_roots in product.get_feature_values_roots %>
+		<% if feature_roots.size > 0 %>
+			<div class="feature_category"><%= category.label %>&nbsp;features&nbsp;<%= link_to("edit model", features_category_path(category))%>&nbsp;&nbsp;&nbsp;<%= link_to("automatic-rating")%></div>
+			<table border=1>
+			<%= render(:partial => "/products/feature_values", :locals => { :features => feature_roots, :depth => 0 }) %>
+			</table>
+		<% end %>
+	<% end %>
+	
+	<%= box_end %>
+</div>

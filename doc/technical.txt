@@ -1,0 +1,9 @@
+
+mysqldump -u root pikizi_development > pikizi_development.sql
+mysqldump -u root --password='lesp0ules0feu' pikizi_production > pikizi_production.sql
+
+mysqldump -u root --no-create-info --complete-insert --skip-extended-insert pikizi_development > pikizi_development.sql2
+
+
+# to start/stop the ferret server
+./script/ferret_server -e production start

@@ -1,0 +1,33 @@
+<%= render(:partial => "/questions/create_feature_value", 
+		:locals => {:category => question.category, :question => question })%>
+
+
+<!-- edit fields of question -- >
+<div class="question_box">
+	<%= ar_field_editor(question, "label", "<b>Question</b>'s label", :size => 60 ) %>
+	<%= ar_field_editor(question, "tag_list", "Question's tags", :size => 60 ) %>
+	<%= ar_field_editor(question, "extract", "Question's description", :cols => 60, :rows => 4 ) %>	
+</div>
+
+<!-- edit fields of choices -- >
+<div class="choice_box">
+	<% for choice_feature_value in question.choices %>
+		<div style="border:1px dashed black; margin-bottom:10px; padding:5px;">
+			<!-- choice's label -->
+			<%= ar_field_editor(choice_feature_value, "label", "<b>Choice</b>'s label", :size => 60 ) %>
+			
+			<!-- choice's background description -->
+			<%= ar_field_editor(choice_feature_value, "extract", "Choice's description", :cols => 60, :rows => 4 ) %>
+			
+			<!-- choice's background media -->
+			<%= render(:partial => "/main/media_editor", :locals => { :title => "media", :ar_object => choice_feature_value }) %>
+			
+			<!-- choice's background image -->
+			<%= render(:partial => "/main/image_editor", :locals => { :title => "thumbnail image", :ar_object => choice_feature_value }) %>
+			
+		</div>
+	<% end %>
+</div>
+
+
+<%= box_end %>

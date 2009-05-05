@@ -1,0 +1,24 @@
+<% if categories.size > 0 %>
+	<ul style="list-style-type: none; margin-top:5px;  margin-bottom:5px; margin-left: 0px; padding-left: 1.5em; text-indent: -1.5em;">
+	<% for category in categories %>
+		<li>
+			<% if @quizzes[category] %>
+			<% for quiz in @quizzes[category] %>
+				<li>
+					<%= quiz.label %>
+					<small>
+						by <%= quiz.author ? quiz.author.screen_name : "unknown" %>, 
+						<%= link_to 'Edit', edit_quiz_path(quiz), :style => "background-color:#{color_of_state(quiz.current_state)}" %>
+						<%= link_to ' publish', export2engine_quiz_path(quiz), :style => "margin-left:10px;" %>
+						<%= link_to ' statistics', stats_from_engine_quiz_path(quiz), :style => "margin-left:10px;" %>
+						<%= link_to('Destroy', quiz_path(quiz), :confirm => 'Are you sure?', :method => :delete) unless quiz.is_a?(QuizCategory)%>
+					</small>
+				</li>
+			<% end %>
+			<% end %>
+			<%= render(:partial => "quizzes/index", :locals => {:categories => category.children})%>
+		</li>
+	<% end %>
+	</ul>
+<% end %>
+

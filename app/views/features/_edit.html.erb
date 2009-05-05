@@ -1,0 +1,40 @@
+
+<!-- # parameter: feature -->
+
+<div class="feature_definition_editor">
+	
+	<!-- editor for the name of the feature -->
+	<% form_tag("/update_feature_header") do -%>
+		<%= hidden_field_tag(:feature_id, feature.id) %>
+		<%= feature.class %>
+		<%= text_field_tag(:label, feature.label, :size =>25 ) %> 
+		<small> in <%= feature.category.path_without_root  %></small>
+	
+		<!-- automatic_rating_mode -- >	
+		<% unless feature.is_a?(FeatureHeader) %>
+			<br/>	
+			<%= radio_button_tag :automatic_rating_mode, 0, feature.automatic_rating_mode == 0 %>no implicit rating&nbsp;
+			<%= radio_button_tag :automatic_rating_mode, 1, feature.automatic_rating_mode == 1 %>ascending&nbsp;
+			<%= radio_button_tag :automatic_rating_mode, -1, feature.automatic_rating_mode == -1 %>descending
+		<% end %>	
+		<!-- description -- >
+		<br/>
+		Description
+		<%= text_area_tag :extract, feature.extract, :style => "width:475px;" %>
+	
+		<!-- submit and remove the feature -->	
+		<br/>
+		<%= submit_tag "save", :style => "margin-top:5px; display:inline;" %>
+		<%= link_to("delete",
+				{:controller => "features", :action => "destroy_feature", :feature_id => feature.id},
+				:confirm => "Are you sure?") %>
+	<% end -%>
+	
+	<!-- media edition -- >
+		<%= render(:partial => "/main/media_editor", :locals => { :title => "Media", :ar_object => feature, :margin_left => 22 }) %>
+		<%= render(:partial => "/main/image_editor", :locals => { :title => "Thumbnail image", :ar_object => feature, :margin_left => 22 }) %>
+</div>
+
+<!-- edit the parameters/definition of the feature -->
+<%= render(:partial => "domains/edit", :locals => {:domain => feature.domain}) if feature.domain %>
+

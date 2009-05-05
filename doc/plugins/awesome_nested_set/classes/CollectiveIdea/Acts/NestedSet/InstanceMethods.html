@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: CollectiveIdea::Acts::NestedSet::InstanceMethods</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">CollectiveIdea::Acts::NestedSet::InstanceMethods</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/vendor/plugins/awesome_nested_set/lib/awesome_nested_set_rb.html">
+                vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Any instance method that returns a collection makes use of Rails
+2.1&#8216;s named_scope (which is bundled for Rails 2.0), so it can be
+treated as a finder.
+</p>
+<pre>
+  category.self_and_descendants.count
+  category.ancestors.find(:all, :conditions =&gt; &quot;name like '%foo%'&quot;)
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000023">&lt;=&gt;</a>&nbsp;&nbsp;
+      <a href="#M000024">==</a>&nbsp;&nbsp;
+      <a href="#M000028">ancestors</a>&nbsp;&nbsp;
+      <a href="#M000022">child?</a>&nbsp;&nbsp;
+      <a href="#M000035">children</a>&nbsp;&nbsp;
+      <a href="#M000034">descendants</a>&nbsp;&nbsp;
+      <a href="#M000038">is_ancestor_of?</a>&nbsp;&nbsp;
+      <a href="#M000036">is_descendant_of?</a>&nbsp;&nbsp;
+      <a href="#M000039">is_or_is_ancestor_of?</a>&nbsp;&nbsp;
+      <a href="#M000037">is_or_is_descendant_of?</a>&nbsp;&nbsp;
+      <a href="#M000021">leaf?</a>&nbsp;&nbsp;
+      <a href="#M000031">leaves</a>&nbsp;&nbsp;
+      <a href="#M000018">left</a>&nbsp;&nbsp;
+      <a href="#M000041">left_sibling</a>&nbsp;&nbsp;
+      <a href="#M000032">level</a>&nbsp;&nbsp;
+      <a href="#M000043">move_left</a>&nbsp;&nbsp;
+      <a href="#M000049">move_possible?</a>&nbsp;&nbsp;
+      <a href="#M000044">move_right</a>&nbsp;&nbsp;
+      <a href="#M000056">move_to</a>&nbsp;&nbsp;
+      <a href="#M000047">move_to_child_of</a>&nbsp;&nbsp;
+      <a href="#M000045">move_to_left_of</a>&nbsp;&nbsp;
+      <a href="#M000046">move_to_right_of</a>&nbsp;&nbsp;
+      <a href="#M000048">move_to_root</a>&nbsp;&nbsp;
+      <a href="#M000052">nested_set_scope</a>&nbsp;&nbsp;
+      <a href="#M000026">parent</a>&nbsp;&nbsp;
+      <a href="#M000017">parent_id</a>&nbsp;&nbsp;
+      <a href="#M000054">prune_from_tree</a>&nbsp;&nbsp;
+      <a href="#M000055">reload_nested_set</a>&nbsp;&nbsp;
+      <a href="#M000019">right</a>&nbsp;&nbsp;
+      <a href="#M000042">right_sibling</a>&nbsp;&nbsp;
+      <a href="#M000025">root</a>&nbsp;&nbsp;
+      <a href="#M000020">root?</a>&nbsp;&nbsp;
+      <a href="#M000040">same_scope?</a>&nbsp;&nbsp;
+      <a href="#M000027">self_and_ancestors</a>&nbsp;&nbsp;
+      <a href="#M000033">self_and_descendants</a>&nbsp;&nbsp;
+      <a href="#M000029">self_and_siblings</a>&nbsp;&nbsp;
+      <a href="#M000053">set_default_left_and_right</a>&nbsp;&nbsp;
+      <a href="#M000030">siblings</a>&nbsp;&nbsp;
+      <a href="#M000050">to_text</a>&nbsp;&nbsp;
+      <a href="#M000051">without_self</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="#M000023" class="method-signature">
+          <span class="method-name">&lt;=&gt;</span><span class="method-args">(x)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+order by <a href="InstanceMethods.html#M000018">left</a> column
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000023-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 268</span>
+268:         <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">x</span>)
+269:           <span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">left</span>
+270:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="#M000024" class="method-signature">
+          <span class="method-name">==</span><span class="method-args">(comparison_object)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Redefine to act like active record
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000024-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 273</span>
+273:         <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">comparison_object</span>)
+274:           <span class="ruby-identifier">comparison_object</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-operator">||</span>
+275:             (<span class="ruby-identifier">comparison_object</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>) <span class="ruby-operator">&amp;&amp;</span>
+276:               <span class="ruby-identifier">comparison_object</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">&amp;&amp;</span>
+277:               <span class="ruby-operator">!</span><span class="ruby-identifier">comparison_object</span>.<span class="ruby-identifier">new_record?</span>)
+278:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
+          <span class="method-name">ancestors</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an array of all parents
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 298</span>
+298:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ancestors</span>
+299:           <span class="ruby-identifier">without_self</span> <span class="ruby-identifier">self_and_ancestors</span>
+300:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="#M000022" class="method-signature">
+          <span class="method-name">child?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns true is this is a child node
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000022-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 263</span>
+263:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">child?</span>
+264:           <span class="ruby-operator">!</span><span class="ruby-identifier">parent_id</span>.<span class="ruby-identifier">nil?</span>
+265:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">children</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a set of only this entry&#8216;s immediate <a
+href="InstanceMethods.html#M000035">children</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 336</span>
+336:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">children</span>
+337:           <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">parent_column_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>}
+338:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="#M000034" class="method-signature">
+          <span class="method-name">descendants</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a set of all of its <a
+href="InstanceMethods.html#M000035">children</a> and nested <a
+href="InstanceMethods.html#M000035">children</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 331</span>
+331:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">descendants</span>
+332:           <span class="ruby-identifier">without_self</span> <span class="ruby-identifier">self_and_descendants</span>
+333:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="#M000038" class="method-signature">
+          <span class="method-name">is_ancestor_of?</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000038-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000038-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 348</span>
+348:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_ancestor_of?</span>(<span class="ruby-identifier">other</span>)
+349:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">right</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">same_scope?</span>(<span class="ruby-identifier">other</span>)
+350:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">is_descendant_of?</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 340</span>
+340:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_descendant_of?</span>(<span class="ruby-identifier">other</span>)
+341:           <span class="ruby-identifier">other</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">right</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">same_scope?</span>(<span class="ruby-identifier">other</span>)
+342:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="#M000039" class="method-signature">
+          <span class="method-name">is_or_is_ancestor_of?</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000039-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000039-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 352</span>
+352:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_or_is_ancestor_of?</span>(<span class="ruby-identifier">other</span>)
+353:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">right</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">same_scope?</span>(<span class="ruby-identifier">other</span>)
+354:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="#M000037" class="method-signature">
+          <span class="method-name">is_or_is_descendant_of?</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 344</span>
+344:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_or_is_descendant_of?</span>(<span class="ruby-identifier">other</span>)
+345:           <span class="ruby-identifier">other</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">right</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">same_scope?</span>(<span class="ruby-identifier">other</span>)
+346:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="#M000021" class="method-signature">
+          <span class="method-name">leaf?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000021-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 258</span>
+258:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">leaf?</span>
+259:           <span class="ruby-identifier">right</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+260:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">leaves</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a set of all of its nested <a
+href="InstanceMethods.html#M000035">children</a> which do not have <a
+href="InstanceMethods.html#M000035">children</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 313</span>
+313:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">leaves</span>
+314:           <span class="ruby-identifier">descendants</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{self.class.table_name}.#{quoted_right_column_name} - #{self.class.table_name}.#{quoted_left_column_name} = 1&quot;</span>
+315:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="#M000018" class="method-signature">
+          <span class="method-name">left</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Value of the <a href="InstanceMethods.html#M000018">left</a> column
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000018-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000018-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 244</span>
+244:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">left</span>
+245:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">left_column_name</span>]
+246:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="#M000041" class="method-signature">
+          <span class="method-name">left_sibling</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Find the first sibling to the <a
+href="InstanceMethods.html#M000018">left</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000041-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000041-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 364</span>
+364:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">left_sibling</span>
+365:           <span class="ruby-identifier">siblings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;#{self.class.table_name}.#{quoted_left_column_name} &lt; ?&quot;</span>, <span class="ruby-identifier">left</span>],
+366:             <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{self.class.table_name}.#{quoted_left_column_name} DESC&quot;</span>)
+367:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">level</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="InstanceMethods.html#M000032">level</a> of this object
+in the tree <a href="InstanceMethods.html#M000025">root</a> <a
+href="InstanceMethods.html#M000032">level</a> is 0
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 319</span>
+319:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">level</span>
+320:           <span class="ruby-identifier">parent_id</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">count</span>
+321:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="#M000043" class="method-signature">
+          <span class="method-name">move_left</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Shorthand method for finding the <a
+href="InstanceMethods.html#M000018">left</a> sibling and moving to the <a
+href="InstanceMethods.html#M000018">left</a> of it.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000043-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000043-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 375</span>
+375:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_left</span>
+376:           <span class="ruby-identifier">move_to_left_of</span> <span class="ruby-identifier">left_sibling</span>
+377:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000049" class="method-detail">
+        <a name="M000049"></a>
+
+        <div class="method-heading">
+          <a href="#M000049" class="method-signature">
+          <span class="method-name">move_possible?</span><span class="method-args">(target)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000049-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000049-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 404</span>
+404:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_possible?</span>(<span class="ruby-identifier">target</span>)
+405:           <span class="ruby-keyword kw">self</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">target</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-comment cmt"># Can't target self</span>
+406:           <span class="ruby-identifier">same_scope?</span>(<span class="ruby-identifier">target</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-comment cmt"># can't be in different scopes</span>
+407:           <span class="ruby-comment cmt"># !(left..right).include?(target.left..target.right) # this needs tested more</span>
+408:           <span class="ruby-comment cmt"># detect impossible move</span>
+409:           <span class="ruby-operator">!</span>((<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">left</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">right</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">left</span>) <span class="ruby-keyword kw">or</span> (<span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">right</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">right</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">right</span>))
+410:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="#M000044" class="method-signature">
+          <span class="method-name">move_right</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Shorthand method for finding the <a
+href="InstanceMethods.html#M000019">right</a> sibling and moving to the <a
+href="InstanceMethods.html#M000019">right</a> of it.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000044-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000044-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 380</span>
+380:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_right</span>
+381:           <span class="ruby-identifier">move_to_right_of</span> <span class="ruby-identifier">right_sibling</span>
+382:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="#M000047" class="method-signature">
+          <span class="method-name">move_to_child_of</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Move the node to the child of another node (you can pass id only)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000047-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000047-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 395</span>
+395:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_to_child_of</span>(<span class="ruby-identifier">node</span>)
+396:           <span class="ruby-identifier">move_to</span> <span class="ruby-identifier">node</span>, <span class="ruby-identifier">:child</span>
+397:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="#M000045" class="method-signature">
+          <span class="method-name">move_to_left_of</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Move the node to the <a href="InstanceMethods.html#M000018">left</a> of
+another node (you can pass id only)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000045-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000045-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 385</span>
+385:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_to_left_of</span>(<span class="ruby-identifier">node</span>)
+386:           <span class="ruby-identifier">move_to</span> <span class="ruby-identifier">node</span>, <span class="ruby-identifier">:left</span>
+387:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="#M000046" class="method-signature">
+          <span class="method-name">move_to_right_of</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Move the node to the <a href="InstanceMethods.html#M000018">left</a> of
+another node (you can pass id only)
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000046-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000046-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 390</span>
+390:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_to_right_of</span>(<span class="ruby-identifier">node</span>)
+391:           <span class="ruby-identifier">move_to</span> <span class="ruby-identifier">node</span>, <span class="ruby-identifier">:right</span>
+392:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="#M000048" class="method-signature">
+          <span class="method-name">move_to_root</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Move the node to <a href="InstanceMethods.html#M000025">root</a> nodes
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000048-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000048-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 400</span>
+400:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_to_root</span>
+401:           <span class="ruby-identifier">move_to</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:root</span>
+402:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="#M000026" class="method-signature">
+          <span class="method-name">parent</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the immediate <a href="InstanceMethods.html#M000026">parent</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 286</span>
+286:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent</span>
+287:           <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">parent_id</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent_id</span>
+288:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <a href="#M000017" class="method-signature">
+          <span class="method-name">parent_id</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Value of the <a href="InstanceMethods.html#M000026">parent</a> column
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000017-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000017-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 239</span>
+239:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_id</span>
+240:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">parent_column_name</span>]
+241:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="#M000019" class="method-signature">
+          <span class="method-name">right</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Value of the <a href="InstanceMethods.html#M000019">right</a> column
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000019-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000019-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 249</span>
+249:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">right</span>
+250:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">right_column_name</span>]
+251:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="#M000042" class="method-signature">
+          <span class="method-name">right_sibling</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Find the first sibling to the <a
+href="InstanceMethods.html#M000019">right</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000042-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000042-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 370</span>
+370:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">right_sibling</span>
+371:           <span class="ruby-identifier">siblings</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;#{self.class.table_name}.#{quoted_left_column_name} &gt; ?&quot;</span>, <span class="ruby-identifier">left</span>])
+372:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="#M000025" class="method-signature">
+          <span class="method-name">root</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns <a href="InstanceMethods.html#M000025">root</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000025-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 281</span>
+281:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root</span>
+282:           <span class="ruby-identifier">self_and_ancestors</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:first</span>)
+283:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="#M000020" class="method-signature">
+          <span class="method-name">root?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns true if this is a <a href="InstanceMethods.html#M000025">root</a>
+node.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000020-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000020-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 254</span>
+254:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root?</span>
+255:           <span class="ruby-identifier">parent_id</span>.<span class="ruby-identifier">nil?</span>
+256:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+          <a href="#M000040" class="method-signature">
+          <span class="method-name">same_scope?</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Check if other model is in the same scope
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000040-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000040-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 357</span>
+357:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">same_scope?</span>(<span class="ruby-identifier">other</span>)
+358:           <span class="ruby-constant">Array</span>(<span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:scope</span>]).<span class="ruby-identifier">all?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attr</span><span class="ruby-operator">|</span>
+359:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">attr</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">attr</span>)
+360:           <span class="ruby-keyword kw">end</span>
+361:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="#M000027" class="method-signature">
+          <span class="method-name">self_and_ancestors</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the array of all parents and self
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 291</span>
+291:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">self_and_ancestors</span>
+292:           <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [
+293:             <span class="ruby-node">&quot;#{self.class.table_name}.#{quoted_left_column_name} &lt;= ? AND #{self.class.table_name}.#{quoted_right_column_name} &gt;= ?&quot;</span>, <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span>
+294:           ]
+295:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">self_and_descendants</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a set of itself and all of its nested <a
+href="InstanceMethods.html#M000035">children</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 324</span>
+324:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">self_and_descendants</span>
+325:           <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [
+326:             <span class="ruby-node">&quot;#{self.class.table_name}.#{quoted_left_column_name} &gt;= ? AND #{self.class.table_name}.#{quoted_right_column_name} &lt;= ?&quot;</span>, <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span>
+327:           ]
+328:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="#M000029" class="method-signature">
+          <span class="method-name">self_and_siblings</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the array of all <a
+href="InstanceMethods.html#M000035">children</a> of the <a
+href="InstanceMethods.html#M000026">parent</a>, including self
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 303</span>
+303:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">self_and_siblings</span>
+304:           <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-identifier">parent_column_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">parent_id</span>}
+305:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="#M000030" class="method-signature">
+          <span class="method-name">siblings</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the array of all <a
+href="InstanceMethods.html#M000035">children</a> of the <a
+href="InstanceMethods.html#M000026">parent</a>, except self
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 308</span>
+308:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">siblings</span>
+309:           <span class="ruby-identifier">without_self</span> <span class="ruby-identifier">self_and_siblings</span>
+310:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000050" class="method-detail">
+        <a name="M000050"></a>
+
+        <div class="method-heading">
+          <a href="#M000050" class="method-signature">
+          <span class="method-name">to_text</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000050-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000050-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 412</span>
+412:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_text</span>
+413:           <span class="ruby-identifier">self_and_descendants</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+414:             <span class="ruby-node">&quot;#{'*'*(node.level+1)} #{node.id} #{node.to_s} (#{node.parent_id}, #{node.left}, #{node.right})&quot;</span>
+415:           <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+416:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000056" class="method-detail">
+        <a name="M000056"></a>
+
+        <div class="method-heading">
+          <a href="#M000056" class="method-signature">
+          <span class="method-name">move_to</span><span class="method-args">(target, position)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000056-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000056-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 475</span>
+475:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">move_to</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">position</span>)
+476:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordError</span>, <span class="ruby-value str">&quot;You cannot move a new node&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new_record?</span>
+477:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">callback</span>(<span class="ruby-identifier">:before_move</span>) <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>
+478:           <span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+479:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">target</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">base_class</span>
+480:               <span class="ruby-identifier">target</span>.<span class="ruby-identifier">reload_nested_set</span>
+481:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:root</span>
+482:               <span class="ruby-comment cmt"># load object if node is not an object</span>
+483:               <span class="ruby-identifier">target</span> = <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">target</span>)
+484:             <span class="ruby-keyword kw">end</span>
+485:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">reload_nested_set</span>
+486:           
+487:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">position</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:root</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">move_possible?</span>(<span class="ruby-identifier">target</span>)
+488:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordError</span>, <span class="ruby-value str">&quot;Impossible move, target node cannot be inside moved tree.&quot;</span>
+489:             <span class="ruby-keyword kw">end</span>
+490:             
+491:             <span class="ruby-identifier">bound</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">position</span>
+492:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:child</span>;  <span class="ruby-identifier">target</span>[<span class="ruby-identifier">right_column_name</span>]
+493:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:left</span>;   <span class="ruby-identifier">target</span>[<span class="ruby-identifier">left_column_name</span>]
+494:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:right</span>;  <span class="ruby-identifier">target</span>[<span class="ruby-identifier">right_column_name</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+495:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:root</span>;   <span class="ruby-value">1</span>
+496:               <span class="ruby-keyword kw">else</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">ActiveRecordError</span>, <span class="ruby-node">&quot;Position should be :child, :left, :right or :root ('#{position}' received).&quot;</span>
+497:             <span class="ruby-keyword kw">end</span>
+498:           
+499:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">bound</span> <span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">right_column_name</span>]
+500:               <span class="ruby-identifier">bound</span> = <span class="ruby-identifier">bound</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+501:               <span class="ruby-identifier">other_bound</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">right_column_name</span>] <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+502:             <span class="ruby-keyword kw">else</span>
+503:               <span class="ruby-identifier">other_bound</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">left_column_name</span>] <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+504:             <span class="ruby-keyword kw">end</span>
+505: 
+506:             <span class="ruby-comment cmt"># there would be no change</span>
+507:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">bound</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">right_column_name</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">bound</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">left_column_name</span>]
+508:           
+509:             <span class="ruby-comment cmt"># we have defined the boundaries of two non-overlapping intervals, </span>
+510:             <span class="ruby-comment cmt"># so sorting puts both the intervals and their boundaries in order</span>
+511:             <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">c</span>, <span class="ruby-identifier">d</span> = [<span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">left_column_name</span>], <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">right_column_name</span>], <span class="ruby-identifier">bound</span>, <span class="ruby-identifier">other_bound</span>].<span class="ruby-identifier">sort</span>
+512: 
+513:             <span class="ruby-identifier">new_parent</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">position</span>
+514:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:child</span>;  <span class="ruby-identifier">target</span>.<span class="ruby-identifier">id</span>
+515:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:root</span>;   <span class="ruby-keyword kw">nil</span>
+516:               <span class="ruby-keyword kw">else</span>          <span class="ruby-identifier">target</span>[<span class="ruby-identifier">parent_column_name</span>]
+517:             <span class="ruby-keyword kw">end</span>
+518: 
+519:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">update_all</span>([
+520:               <span class="ruby-node">&quot;#{quoted_left_column_name} = CASE &quot;</span> <span class="ruby-operator">+</span>
+521:                 <span class="ruby-node">&quot;WHEN #{quoted_left_column_name} BETWEEN :a AND :b &quot;</span> <span class="ruby-operator">+</span>
+522:                   <span class="ruby-node">&quot;THEN #{quoted_left_column_name} + :d - :b &quot;</span> <span class="ruby-operator">+</span>
+523:                 <span class="ruby-node">&quot;WHEN #{quoted_left_column_name} BETWEEN :c AND :d &quot;</span> <span class="ruby-operator">+</span>
+524:                   <span class="ruby-node">&quot;THEN #{quoted_left_column_name} + :a - :c &quot;</span> <span class="ruby-operator">+</span>
+525:                 <span class="ruby-node">&quot;ELSE #{quoted_left_column_name} END, &quot;</span> <span class="ruby-operator">+</span>
+526:               <span class="ruby-node">&quot;#{quoted_right_column_name} = CASE &quot;</span> <span class="ruby-operator">+</span>
+527:                 <span class="ruby-node">&quot;WHEN #{quoted_right_column_name} BETWEEN :a AND :b &quot;</span> <span class="ruby-operator">+</span>
+528:                   <span class="ruby-node">&quot;THEN #{quoted_right_column_name} + :d - :b &quot;</span> <span class="ruby-operator">+</span>
+529:                 <span class="ruby-node">&quot;WHEN #{quoted_right_column_name} BETWEEN :c AND :d &quot;</span> <span class="ruby-operator">+</span>
+530:                   <span class="ruby-node">&quot;THEN #{quoted_right_column_name} + :a - :c &quot;</span> <span class="ruby-operator">+</span>
+531:                 <span class="ruby-node">&quot;ELSE #{quoted_right_column_name} END, &quot;</span> <span class="ruby-operator">+</span>
+532:               <span class="ruby-node">&quot;#{quoted_parent_column_name} = CASE &quot;</span> <span class="ruby-operator">+</span>
+533:                 <span class="ruby-node">&quot;WHEN #{self.class.base_class.primary_key} = :id THEN :new_parent &quot;</span> <span class="ruby-operator">+</span>
+534:                 <span class="ruby-node">&quot;ELSE #{quoted_parent_column_name} END&quot;</span>,
+535:               {<span class="ruby-identifier">:a</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>, <span class="ruby-identifier">:b</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">b</span>, <span class="ruby-identifier">:c</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>, <span class="ruby-identifier">:d</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:new_parent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_parent</span>}
+536:             ], <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">proxy_options</span>[<span class="ruby-identifier">:conditions</span>])
+537:           <span class="ruby-keyword kw">end</span>
+538:           <span class="ruby-identifier">target</span>.<span class="ruby-identifier">reload_nested_set</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">target</span>
+539:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">reload_nested_set</span>
+540:           <span class="ruby-identifier">callback</span>(<span class="ruby-identifier">:after_move</span>)
+541:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000052" class="method-detail">
+        <a name="M000052"></a>
+
+        <div class="method-heading">
+          <a href="#M000052" class="method-signature">
+          <span class="method-name">nested_set_scope</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+All nested set queries should use this <a
+href="InstanceMethods.html#M000052">nested_set_scope</a>, which performs
+finds on the base <a href="../../../ActiveRecord.html">ActiveRecord</a>
+class, using the :scope declared in the acts_as_nested_set declaration.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000052-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000052-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 427</span>
+427:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nested_set_scope</span>
+428:           <span class="ruby-identifier">options</span> = {<span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">quoted_left_column_name</span>}
+429:           <span class="ruby-identifier">scopes</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:scope</span>])
+430:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:conditions</span>] = <span class="ruby-identifier">scopes</span>.<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">conditions</span>,<span class="ruby-identifier">attr</span><span class="ruby-operator">|</span>
+431:             <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">attr</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">attr</span>]
+432:           <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">scopes</span>.<span class="ruby-identifier">empty?</span>
+433:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">options</span>
+434:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000054" class="method-detail">
+        <a name="M000054"></a>
+
+        <div class="method-heading">
+          <a href="#M000054" class="method-signature">
+          <span class="method-name">prune_from_tree</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prunes a branch off of the tree, shifting all of the elements on the <a
+href="InstanceMethods.html#M000019">right</a> back to the <a
+href="InstanceMethods.html#M000018">left</a> so the counts still work.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000054-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000054-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 446</span>
+446:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prune_from_tree</span>
+447:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">right</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">left</span>.<span class="ruby-identifier">nil?</span>
+448:           <span class="ruby-identifier">diff</span> = <span class="ruby-identifier">right</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">left</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+449: 
+450:           <span class="ruby-identifier">delete_method</span> = <span class="ruby-identifier">acts_as_nested_set_options</span>[<span class="ruby-identifier">:dependent</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:destroy</span> <span class="ruby-operator">?</span>
+451:             <span class="ruby-identifier">:destroy_all</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">:delete_all</span>
+452: 
+453:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">base_class</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+454:             <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">delete_method</span>,
+455:               [<span class="ruby-node">&quot;#{quoted_left_column_name} &gt; ? AND #{quoted_right_column_name} &lt; ?&quot;</span>,
+456:                 <span class="ruby-identifier">left</span>, <span class="ruby-identifier">right</span>]
+457:             )
+458:             <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">update_all</span>(
+459:               [<span class="ruby-node">&quot;#{quoted_left_column_name} = (#{quoted_left_column_name} - ?)&quot;</span>, <span class="ruby-identifier">diff</span>],
+460:               [<span class="ruby-node">&quot;#{quoted_left_column_name} &gt;= ?&quot;</span>, <span class="ruby-identifier">right</span>]
+461:             )
+462:             <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">update_all</span>(
+463:               [<span class="ruby-node">&quot;#{quoted_right_column_name} = (#{quoted_right_column_name} - ?)&quot;</span>, <span class="ruby-identifier">diff</span>],
+464:               [<span class="ruby-node">&quot;#{quoted_right_column_name} &gt;= ?&quot;</span>, <span class="ruby-identifier">right</span>]
+465:             )
+466:           <span class="ruby-keyword kw">end</span>
+467:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000055" class="method-detail">
+        <a name="M000055"></a>
+
+        <div class="method-heading">
+          <a href="#M000055" class="method-signature">
+          <span class="method-name">reload_nested_set</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+reload <a href="InstanceMethods.html#M000018">left</a>, <a
+href="InstanceMethods.html#M000019">right</a>, and <a
+href="InstanceMethods.html#M000026">parent</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000055-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000055-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 470</span>
+470:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload_nested_set</span>
+471:           <span class="ruby-identifier">reload</span>(<span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{quoted_left_column_name}, &quot;</span> <span class="ruby-operator">+</span>
+472:             <span class="ruby-node">&quot;#{quoted_right_column_name}, #{quoted_parent_column_name}&quot;</span>)
+473:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000053" class="method-detail">
+        <a name="M000053"></a>
+
+        <div class="method-heading">
+          <a href="#M000053" class="method-signature">
+          <span class="method-name">set_default_left_and_right</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+on creation, set automatically lft and rgt to the end of the tree
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000053-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000053-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 437</span>
+437:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_default_left_and_right</span>
+438:           <span class="ruby-identifier">maxright</span> = <span class="ruby-identifier">nested_set_scope</span>.<span class="ruby-identifier">maximum</span>(<span class="ruby-identifier">right_column_name</span>) <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+439:           <span class="ruby-comment cmt"># adds the new node to the right of all existing nodes</span>
+440:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">left_column_name</span>] = <span class="ruby-identifier">maxright</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+441:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">right_column_name</span>] = <span class="ruby-identifier">maxright</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>
+442:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000051" class="method-detail">
+        <a name="M000051"></a>
+
+        <div class="method-heading">
+          <a href="#M000051" class="method-signature">
+          <span class="method-name">without_self</span><span class="method-args">(scope)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000051-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000051-source">
+<pre>
+     <span class="ruby-comment cmt"># File vendor/plugins/awesome_nested_set/lib/awesome_nested_set.rb, line 420</span>
+420:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">without_self</span>(<span class="ruby-identifier">scope</span>)
+421:           <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">scoped</span> <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-node">&quot;#{self.class.table_name}.#{self.class.primary_key} != ?&quot;</span>, <span class="ruby-keyword kw">self</span>]
+422:         <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

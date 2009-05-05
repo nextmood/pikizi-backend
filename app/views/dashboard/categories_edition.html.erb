@@ -1,0 +1,9 @@
+<%= box_title %>
+Edit Categories
+<%= box_content %>
+<%= link_to("Create a new root category", "/dashboard/add_sub_category/#{Category.root.id}", :style => "margin-left:10px;") %>
+<% for root_category in @roots_categories %>
+	<%= render(:partial => "/dashboard/categories_edition", :locals => {:categories => root_category.children}) %>
+<% end %>
+<%= box_end %>
+

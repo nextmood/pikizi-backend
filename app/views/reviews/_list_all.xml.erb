@@ -1,0 +1,23 @@
+<%= "<?xml version='1.0' encoding='UTF-8'?><tree_reviews>" if start %>
+
+<% for category, products, sub_reviews_per_category_product in reviews_per_category_product %>
+	<category_level> <!-- BEGIN sub categories, products and reviews: <%= category.path %> -->
+		<%= category.to_xml(:skip_instruct => true, :only => [ :id, :label, :parent_id, :path ]) %>
+		<% if products.size > 0 %>
+			<products> <!-- BEGIN start list of reviews per product for category: <%= category.path %> -->
+			<% for product, reviews in products %>
+				<%= product.to_xml(	:include => :reviews, :skip_instruct => true, 
+									:only => [ :id, :label, :path, :amazon_asin, :description, 
+											   :author_id, :rating, :url, :summary, :content]) %>		
+			<% end %>
+			</products> <!-- END start list of reviews per product for category: <%= category.path %> -->
+		<% end %>
+		<% if sub_reviews_per_category_product.size > 0 %>
+			<%= render(:partial => "/reviews/list_all", 
+						:locals => {:reviews_per_category_product => sub_reviews_per_category_product,
+									:start => false })%>
+		<% end %>
+	</category_level> <!-- END sub categories, products and reviews: <%= category.path %> -->	
+<% end %>
+
+<%= "</tree_reviews>" if start %>

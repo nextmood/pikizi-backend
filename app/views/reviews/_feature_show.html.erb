@@ -1,0 +1,26 @@
+
+<ul id="tree_<%= dom_id %>"
+	style="list-style-type: none; margin-left: 0; padding-left: 1.5em; text-indent: -1.5em; display:<%= display %>">
+<% for feature in features %>
+	<% feature_review = feature.feature_reviews.first %>
+	<li>
+		<%= as_trash_or_hot(feature_review.rating) %>:
+		
+		<!-- attribute editor -->
+		<%= feature_review.feature.label %>
+		<%= link_to_function(image_tag("icons/drill_down.gif", :border => 0),
+		 "document.getElementById('tree_#{feature_review.id}').toggle();") if feature.node_children.size > 0 %>
+		<%= feature_review.get_feature_value.value_as_string %>
+		
+		<%= link_to_function("more...", "document.getElementById('compare_feature_review_#{feature_review.id}').toggle();") %>
+					
+		<!-- display sub attributes -->
+		<% if feature.node_children.size > 0 %>
+			<%= render(:partial => "/reviews/feature_show", 
+						:locals => {:features => feature.node_children, :display => 'none', :dom_id => feature_review.id }) %>
+		<% end %>
+		
+		<%= render(:partial => "/reviews/feature_compare_show", :locals => {:display => "none", :feature_review => feature_review})%>
+	</li>
+<% end %>
+</ul>

@@ -1,0 +1,53 @@
+	<%= box_title %>
+		Please review the following tips
+	<%= box_content %>
+	<% for question, tips_per_choice in @questions %>
+		<table name="review_question_<%= question.id %>" style="border-top:1px black dashed;">
+			<tr>
+				<td width=350 valign="top" rowspan="2">
+					<b><%= question.label_interrogative %></b>
+					<br/>
+					submitted on:<i><%= format_date(question.updated_at) %></i>
+					<br/>
+					by:<i><%= question.author.screen_name %></i>
+					<br/>
+				</td>
+				<% for choice in question.choices %>
+					<td width=120 align="center" style="border:1px black solid;">
+						<span title="<%= choice.code %>"><b><%= choice.label %></b></span>
+					</td>
+				<% end %>
+			</tr>
+			<tr>
+				<!-- Display all the tips -->
+				<% for choice in question.choices %>
+					<td align="center" style="border:1px black solid;"  valign="top">
+						<% if tips_per_choice[choice.code] %>
+						<ul>
+						<% for tip in tips_per_choice[choice.code] %>
+							<li id="tip_<%= tip.product_id %>_<%= tip.question_id %>" style="list-style:none;">
+								<table><tr>
+							        <td valign=\"top\">
+										<%= render(	:partial => "/products/icon", 
+													:locals => {:product => product, :html_tag => "div", :is_draggable => false}) %>
+									</td>
+							        <td valign=\"top\">#{tips_to_review}
+										<ul style="list-style:none; margin-left:5px;">
+										<% for tip in Tip.list_to_review_by_user(user, 5, product) %>
+											<%= render(:partial => "/tips/update", 
+													   :locals => {:tip => tip, :with_product_name => false, :html_tag => "li" })%>
+										<% end %>
+										</ul>
+									</td>
+							     </tr></table>
+							</li>
+						<% end %>
+						</ul>
+						<% end %>
+					</td>
+				<% end %>
+			</tr>
+		</table>
+
+	<% end %>
+	<%= box_end %>

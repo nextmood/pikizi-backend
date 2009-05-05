@@ -1,0 +1,52 @@
+<!-- 
+	display a flex image or a link to edit the image/media
+	parameters: 
+	ar_object, an active record with a fleximage
+	timestamp, per default nil
+	display_thumbnail  boolean 
+	display_editor boolean, per default nil
+-->
+<div id="<%= MainController.fleximage_domid(ar_object) %>" 
+	 style=	"position:relative; width:80px; height:<%= display_thumbnail ? 80 : 20 %>px; 
+			<%= ' display:inline;' unless display_thumbnail %>"
+	>
+	
+	<!-- display image if needed -->
+	<%= render(:partial => "/main/thumbnail", :locals => {:ar_object => ar_object, :timestamp => timestamp, :no_link => true}) if display_thumbnail %>
+	
+	<!-- open/close the media/editor -->
+	<%= link_to_remote(
+			(display_thumbnail ? image_tag("icons/options.png", :border => 0, :style => "position:absolute; bottom:-7px; right:-2px;") : "media" ),
+			:url => "/fleximage_editor/#{ar_object.class}/#{ar_object.id}/#{display_thumbnail}/#{display_editor}") %>
+			
+	
+	<% if display_editor %>
+	<!--  display the image editor  -->
+	<div class="fleximage_editor">
+		<!-- display image if needed -->
+		<%= render(	:partial => "/main/thumbnail", 
+					:locals => {:ar_object => ar_object, :timestamp => timestamp, :no_link => true}) unless display_thumbnail %>
+		
+		<!-- form to edit the image -->		
+		<% form_remote_tag(:url => "/fleximage_upload/#{ar_object.class}/#{ar_object.id}/#{display_thumbnail}", :html => { :style => "position:absolute; top:0px; left:100px;"}) do -%>
+			<p>
+				<span>URL image</span>
+				<%= text_field_tag("media[image_file_url]", nil, :size => 38) %>
+			</p>
+
+			<p style="margin-top:3px;">
+				<span>URL Media</span>
+				<%= text_field_tag("media[media_url]", ar_object.media_url, :size => 38) %>
+			</p>
+			<small>ex: http://www.youtube.com/v/uhi5x7V3WXE</small>
+
+			<p style="text-align:center; margin-top:5px;">
+				<%= submit_tag("update media") %> 
+				<!-- close the media/editor -->
+				<%= link_to_remote("close", 
+						:url => "/fleximage_editor/#{ar_object.class}/#{ar_object.id}/#{display_thumbnail}/true") %>
+			</p>
+	  	<% end -%>
+	</div>
+	<% end %>
+</div>

@@ -1,0 +1,12 @@
+<% unless owner.wishlist_current.products.empty? %>		
+	<% for product in owner.wishlist_current.products %>
+		<%= render(:partial => "/main/thumbnail", 
+				:locals => {:ar_object => product, :is_draggable => true, 
+							:container_tag => "div", :corner_link => "/wishlists/remove/#{product.id}" }) %>
+	<% end %>
+<% else %>
+	<div style="width:210px;">
+		No products in Album<br/><br/>
+		to add product: Search in the text box above, or click on <%= image_tag("icons/heart.png", :border => 0)%>
+	</div>
+<% end %>

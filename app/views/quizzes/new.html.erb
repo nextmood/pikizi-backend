@@ -1,0 +1,21 @@
+<h1>Create a Quizz</h1>
+
+<% form_for(@quiz) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :type %><br />
+    <%= f.text_field :type %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', quizzes_path %>

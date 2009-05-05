@@ -1,0 +1,8 @@
+<% extra_html = nil if local_assigns[:extra_html].nil? %>
+<div style="margin-top:0px; margin-bottom:10px; ">
+	<%= check_box_tag(:cb_display_title, question.is_multiple, question.is_multiple,
+		 	:onclick => remote_function(:url => "/questions/toggle_is_multiple/#{question.id}"),
+			:style => "margin-left:2px;") %>multiple answers
+	<%= link_to_function("add a choice", "window.location.href='/questions/#{question.id}/add_choice'") %>
+	<%= extra_html %>
+</div>

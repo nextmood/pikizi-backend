@@ -1,0 +1,66 @@
+
+
+	<!-- ========================== Question Poll ========================== -->	
+	<% if @question.is_a?(QuestionPoll) %>
+		<%= render(:partial => "/questions/choices_poll", :locals => {:question => @question})%>		
+
+	<!-- ========================== Question Feature ========================== -->	
+	<% elsif @question.is_a?(QuestionFeature) %>
+		<%= render(:partial => "/questions/choices_feature", :locals => {:question => @question})%>
+	
+	<!-- ========================== Question Filter ========================== -->	
+	<% elsif @question.is_a?(QuestionFilter) %>
+		<%= render(:partial => "/questions/choices_filter", :locals => {:question => @question})%>
+		
+	<!-- ========================== Question Tip ========================== -->	
+	<% elsif @question.is_a?(QuestionTip) %>
+		<%= render(:partial => "/questions/choices_tip", :locals => {:question => @question})%>
+
+	<!-- ========================== Question Feature Value ========================== -->	
+	<% elsif @question.is_a?(QuestionFeatureValue) %>
+		<%= render(:partial => "/questions/choices_feature_value", :locals => {:question => @question})%>
+		
+	<!-- ========================== Question Generic ========================== -->	
+	<% elsif @question.is_a?(QuestionGeneric) %>
+		<%= render(:partial => "/questions/choices_generic", :locals => {:question => @question})%>
+		
+	<!-- ========================== Question Trade Off ========================== -->	
+	<% elsif @question.is_a?(QuestionTradeOff) %>
+		<%= render(:partial => "/questions/choices_tradeoff", :locals => {:question => @question})%>
+	
+	<!-- ========================== Error ========================== -->	
+	<% else %>
+		Oups <%= "#{@question.class} #{@question.label} ##{@question.id}" %>
+	<% end %>
+    
+
+
+
+<%= box_title %>
+	<a name="preview">Preview</a> 
+	<span style="font-size:12px; font-weight:normal; color:black; margin-left:10px;">
+		<%= link_to("refresh", edit_question_path(@question), :style=> "margin-left:20px; color:blue;")%>	
+	</span>
+<%= box_content %>
+	<div style="margin-bottom:10px;">
+		display question:
+		<%= check_box_tag(:cb_display_background_image, @question.display_background_image, @question.display_background_image,
+		 		:onclick => remote_function(:url => "/questions/toggle_display_background_image/#{@question.id}"),
+		 		:style => "margin-left:2px;") %>background image
+		<%= check_box_tag(:cb_display_background_media, @question.display_background_media, @question.display_background_media,
+		 		:onclick => remote_function(:url => "/questions/toggle_display_background_media/#{@question.id}"),
+		 		:style => "margin-left:2px;") %>media
+		<br/>display choice:
+		<%= check_box_tag(:cb_display_thumbnail, @question.display_thumbnail, @question.display_thumbnail,
+		 		:onclick => remote_function(:url => "/questions/toggle_display_thumbnail/#{@question.id}"),
+		 		:style => "margin-left:2px;") %>thumbnail
+		<%= check_box_tag(:cb_display_choice_media, @question.display_choice_media, @question.display_choice_media,
+		 		:onclick => remote_function(:url => "/questions/toggle_display_choice_media/#{@question.id}"),
+		 		:style => "margin-left:2px;") %>media
+		<%= check_box_tag(:cb_display_title, @question.display_title, @question.display_title,
+		 		:onclick => remote_function(:url => "/questions/toggle_display_title/#{@question.id}"),
+		 		:style => "margin-left:2px;") %>title		
+	</div>
+	<%= render(:partial => "/questions/show", :locals => {:question => @question})%>
+<%= box_end %>
+

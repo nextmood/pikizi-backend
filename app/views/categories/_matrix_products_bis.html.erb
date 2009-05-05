@@ -1,0 +1,26 @@
+<% index = 0 %>
+<% for feature in features %>
+	<% updated_path = (path.clone << feature.label) %>
+	<% updated_tree_id = "#{tree_id}_#{index}"%>
+	<tr id="<%= updated_tree_id %>">
+		<td valign="top" >
+			<%= "&nbsp;&nbsp;" * depth %>
+			<%= render(:partial => "features/show", :locals => { :feature => feature }) %>
+			<%= link_to_function("...", "treetable_toggleRow('#{updated_tree_id}');") if  feature.node_children.size > 0 %>
+		</td>
+		<% for product in products %>
+			<td valign="top" align="center">
+				<% if logged_in? and !(feature_value = product.get_feature_value(feature.id)).is_a?(FeatureHeader) %>
+					<!-- attribute editor -->
+					<%= render(:partial => "feature_values/form", :locals => { :feature_value => feature_value, :matrix_edit => true })%>
+				<% else %>
+					<%= product.get_feature_value_string(feature.id)  %>
+				<% end %>				
+			</td>
+		<% end %>
+	</tr>
+	<%= render(	:partial => "/categories/matrix_products_bis",
+				:locals => {:products => products, :features => feature.node_children, :path => updated_path, :tree_id => updated_tree_id, :depth => depth + 1})%>
+	<% index += 1 %>
+	
+<% end %>

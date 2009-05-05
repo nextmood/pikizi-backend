@@ -1,0 +1,26 @@
+
+<ul id="tree_<%= dom_id %>" style="list-style-type: none; margin-left: 0; padding-left: 1.5em; text-indent: -1.5em; display:<%= display %>">
+
+<% for feature in features %>
+	<% feature_value = feature.feature_values.first %>
+	<li>
+		<% fake_rating = rand(5) + 1 %>
+		<% if fake_rating <= 1 %>
+			<%= image_tag('icons/feature_trash.png', :border => 0) %>
+		<% elsif fake_rating >= 5 %>
+			<%= image_tag('icons/feature_hot.png', :border => 0) %>
+		<% else %>
+			<%= image_tag('icons/feature_blank.png', :border => 0) %>
+		<% end %>
+		
+		
+		<%= feature_value.feature.label %> 
+		<span class="show_value"><%= feature_value.value_as_string %></span>
+		
+		<% if feature.node_children.size > 0 %>
+			<%= link_to_function(image_tag("icons/drill_down.gif", :border => 0), "document.getElementById('tree_#{feature_value.id}').toggle();") %>
+			<%= render(:partial => "/products/show_features", :locals => {:features => feature.node_children, :display => 'none', :dom_id => feature_value.id })%>
+		<% end %>
+	</li>
+<% end %>
+</ul>

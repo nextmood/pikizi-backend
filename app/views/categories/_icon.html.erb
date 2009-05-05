@@ -1,0 +1,15 @@
+<%= image_tag("/categories/#{category.id}/thumbnail.jpg", :border => 0, :style => "position:absolute; top:0px; left:0px;") %>
+
+<div style="position:absolute; bottom:0px; left:0px; background-color:white; padding:2px; font-size:90%;">
+	<%= category.label %>&nbsp;(<%= category.products_all.size %>)
+</div>
+	
+<% unless category.media_url.blank? %>	
+	<a 	href="<%= category.media_url %>" 
+		class="lightwindow page-options" 
+		params="lightwindow_width=425,lightwindow_height=340,lightwindow_loading_animation=false" 
+		title="<%= category.label %>"
+		style="position:absolute; top:0px; right:0px;">
+	  <%= image_tag "icons/media.jpg", :border => 0 %>
+	</a>
+<% end %>

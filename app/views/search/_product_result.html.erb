@@ -1,0 +1,32 @@
+<div id="<%= product_dom_id(product.id) %>"style="margin:5px; position:relative; width:80px; height:80px; border: 1px solid black; display:inline-block;">
+	<%= link_to(image_tag("/products/#{product.id}/thumbnail.jpg", :border => 0),
+				"#{search_box_parameters(:search_image_link)}/#{product.id}",
+				:style => "position:absolute; top:0px; right:0px;") %>
+	<!-- video -->
+	<% if search_box_parameters(:search_action_link)  %>
+		<div style="position:absolute; top:0px; left:0px; background-color:white">
+			<%= link_to(image_tag("icons/radiobutton.jpg", :border => 0),
+			 			"#{search_box_parameters(:search_action_link)}/#{product.id}") %>
+		</div>
+	<% end %>
+	<% if search_box_parameters(:search_select_link) %>
+		<div style="position:absolute; top:0px; left:0px; background-color:white">
+			<%= link_to_remote(	if search_box_parameters(:product_ids_selected).include?(product.id)
+									image_tag("icons/checkbox_checked.gif", :border => 0)
+								else
+									image_tag("icons/checkbox_unchecked.gif", :border => 0)
+								end,
+								:url => {:controller => "search", :action => "toggle_product_selection" , :product_id => product.id}) %>
+		</div>
+	<% end %>
+	<% unless product.media_url.blank? %>	
+		<a 	href="<%= product.media_url %>" 
+			class="lightwindow page-options" 
+			params="lightwindow_width=425,lightwindow_height=340,lightwindow_loading_animation=false" 
+			title="<%= product.label %>"
+			style="position:absolute; top:20px; right:0px;">
+		  <%= image_tag "icons/media.jpg", :border => 0 %>
+		</a>
+	<% end %>		
+	
+</div>

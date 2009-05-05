@@ -1,0 +1,17 @@
+<%= box_title %>
+	<% if question %>
+		<%= label %> #<%= question.id %>
+	<% else %>
+		Create a <%= label %>
+	<% end %>
+	<span style = "font-size:12px; font-weight:normal; margin-left:10px;">
+		In category <%= link_to(category.path_without_root, "/categories/#{category.id}/questions") %>
+		
+		<% if question %>
+			<%= question_state(question, false) %>
+			,&nbsp;<%= link_to("delete", question_path(question), :confirm => "Are you sure?", :method => :delete, :style => "") %>
+		<% end %>
+		
+	</span>
+<%= box_content %>
+

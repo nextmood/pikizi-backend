@@ -1,0 +1,26 @@
+
+<%= box_title %>
+	Quizzes...
+<%= box_content %>	
+<% for root_category in Category.roots %>
+	<%= render(:partial => "quizzes/index", :locals => {:categories => root_category.children}) %>
+<% end %>
+<%= box_end %>
+
+
+<%= box_title %>
+<%= box_content %>
+<% form_tag "/quizzes/add_new_default_quizz", :style => "margin-top:20px;" do -%>
+	Create a new Quizz in category
+	<%= select_tag(:category_id, options_from_collection_for_select(Category.root.self_and_descendants[1..10000], "id", "path_with_nb_questions", current_user.expert_in_category_id)) %>
+	<!-- <%= submit_tag('Create') %> -->
+<% end -%>
+<%= box_end %>
+
+
+
+
+
+	 	
+
+	

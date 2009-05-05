@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: AjaxfulRating::Helper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">AjaxfulRating::Helper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/vendor/plugins/ajaxful-rating/lib/ajaxful_rating_helper_rb.html">
+                vendor/plugins/ajaxful-rating/lib/ajaxful_rating_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000013">ajaxful_rating_style</a>&nbsp;&nbsp;
+      <a href="#M000012">ratings_for</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Helper/MissingRateRoute.html" class="link">AjaxfulRating::Helper::MissingRateRoute</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="#M000013" class="method-signature">
+          <span class="method-name">ajaxful_rating_style</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Call this method &lt;strong&gt;within head tags&lt;/strong&gt; of the main
+layout to yield the dynamic styles. It will include the necessary
+stlyesheet and output the dynamic CSS.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  &lt;head&gt;
+    &lt;%= ajaxful_rating_style %&gt;
+  &lt;/head&gt;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000013-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000013-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/ajaxful-rating/lib/ajaxful_rating_helper.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ajaxful_rating_style</span>
+96:       <span class="ruby-identifier">stylesheet_link_tag</span>(<span class="ruby-value str">'ajaxful_rating'</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:style</span>, <span class="ruby-identifier">ajaxful_styles</span>,
+97:         <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'text/css'</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ajaxful_styles</span>.<span class="ruby-identifier">blank?</span>
+98:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="#M000012" class="method-signature">
+          <span class="method-name">ratings_for</span><span class="method-args">(rateable, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generates the stars list to submit a rate.
+</p>
+<p>
+It accepts the next options:
+</p>
+<ul>
+<li><tt>:class</tt> CSS class for the ul. Default is
+&#8216;ajaxful-rating&#8217;.
+
+</li>
+<li><tt>:link_class_prefix</tt> Prefix for the li a CSS class. Default is
+&#8216;stars&#8217;.
+
+</li>
+<li><tt>:small_stars</tt> Set this param to true to display smaller images.
+Default is false.
+
+</li>
+<li><tt>:small_star_class</tt> CSS class for the list when using small images.
+Default is &#8216;small-stars&#8217;.
+
+</li>
+<li><tt>:html</tt> Hash of options to customise the ul tag.
+
+</li>
+<li><tt>:remote_options</tt> Hash of options for the link_to_remote function.
+
+</li>
+</ul>
+<p>
+Default is {:method =&gt; :post, :url =&gt;
+rate_rateablemodel_path(rateable)}.
+</p>
+<ul>
+<li><tt>:wrap</tt> Whether the star list is wrapped within a div tag or not.
+This is useful when page updating. Default is true.
+
+</li>
+</ul>
+<p>
+Example:
+</p>
+<pre>
+  &lt;%= ratings_for @article %&gt;
+  # =&gt; Will produce something like:
+  &lt;ul class=&quot;ajaxful-rating&quot;&gt;
+    &lt;li class=&quot;current-rating&quot; style=&quot;width: 60%;&quot;&gt;Currently 3/5 stars&lt;/li&gt;
+    &lt;li&gt;&lt;%= link_to_remote 1, :url =&gt; rate_article_path(@article, :stars =&gt; 1), :method =&gt; :post, :html =&gt; {:class =&gt; 'stars-1', :title =&gt; '1 star out of 5'} %&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%= link_to_remote 2, :url =&gt; rate_article_path(@article, :stars =&gt; 2), :method =&gt; :post, :html =&gt; {:class =&gt; 'stars-2', :title =&gt; '2 stars out of 5'} %&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%= link_to_remote 3, :url =&gt; rate_article_path(@article, :stars =&gt; 3), :method =&gt; :post, :html =&gt; {:class =&gt; 'stars-3', :title =&gt; '3 stars out of 5'} %&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%= link_to_remote 4, :url =&gt; rate_article_path(@article, :stars =&gt; 4), :method =&gt; :post, :html =&gt; {:class =&gt; 'stars-4', :title =&gt; '4 stars out of 5'} %&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;%= link_to_remote 5, :url =&gt; rate_article_path(@article, :stars =&gt; 5), :method =&gt; :post, :html =&gt; {:class =&gt; 'stars-5', :title =&gt; '5 stars out of 5'} %&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+</pre>
+<p>
+It will try to use the method <tt>current_user</tt> as the user instance.
+You can specify a custom instance in the second parameter or pass
+<tt>:static</tt> to leave the list of stars static.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  &lt;%= ratings_for @article, @user, :small_stars =&gt; true %&gt;
+  # =&gt; Will use @user instead &lt;tt&gt;current_user&lt;/tt&gt;
+
+  &lt;%= ratings_for @article, :static, :small_stars =&gt; true %&gt;
+  # =&gt; Will produce a static list of stars showing the current rating average for @article.
+</pre>
+<p>
+The user passed here will <b>not</b> be the one who submits the rate. It
+will be used only for the display behavior of the stars. Like for example,
+if there is a user logged in or if the current logged in user is able to
+submit a rate depending on the configuration (accepts update of rates,
+etc).
+</p>
+<p>
+So to actually set the user who will rate the model you need to do it in
+your controller:
+</p>
+<pre>
+  # controller
+  def rate
+    @article = Article.find(params[:id])
+    @article.rate(params[:stars], current_user) # or any user instance
+    # update page, etc.
+  end
+</pre>
+<p>
+I18n:
+</p>
+<p>
+You can translate the title of the images (the tool tip that shows when the
+mouse is over) and the &#8216;Currently x/x stars&#8217; string by setting
+these keys on your translation hash:
+</p>
+<pre>
+  ajaxful_rating:
+    stars:
+      current_average: &quot;Current rating: {{average}}/{{max}}&quot;
+      title:
+        one: 1 star out of {{total}}
+        other: &quot;{{count}} stars out of {{total}}&quot;
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000012-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000012-source">
+<pre>
+    <span class="ruby-comment cmt"># File vendor/plugins/ajaxful-rating/lib/ajaxful_rating_helper.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ratings_for</span>(<span class="ruby-identifier">rateable</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+68:       <span class="ruby-identifier">user</span> = <span class="ruby-identifier">extract_options</span>(<span class="ruby-identifier">rateable</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+69:       <span class="ruby-identifier">ajaxful_styles</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">%Q(
+70:       .#{options[:class]} { width: #{rateable.class.max_rate_value * 25}px; }
+71:       .#{options[:small_star_class]} { width: #{rateable.class.max_rate_value * 10}px; }
+72:       )</span>
+73:       <span class="ruby-identifier">width</span> = (<span class="ruby-identifier">rateable</span>.<span class="ruby-identifier">rate_average</span>(<span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:dimension</span>]) <span class="ruby-operator">/</span> <span class="ruby-identifier">rateable</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">max_rate_value</span>.<span class="ruby-identifier">to_f</span>) <span class="ruby-operator">*</span> <span class="ruby-value">100</span>
+74:       <span class="ruby-identifier">ul</span> = <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:ul</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:html</span>]) <span class="ruby-keyword kw">do</span>
+75:         <span class="ruby-constant">Range</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">1</span>, <span class="ruby-identifier">rateable</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">max_rate_value</span>).<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+76:           <span class="ruby-identifier">build_star</span> <span class="ruby-identifier">rateable</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">i</span>
+77:         <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:li</span>, <span class="ruby-identifier">current_average</span>(<span class="ruby-identifier">rateable</span>),
+78:             <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'current-rating'</span>, <span class="ruby-identifier">:style</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;width:#{width}%&quot;</span>))
+79:       <span class="ruby-keyword kw">end</span>
+80:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:wrap</span>]
+81:         <span class="ruby-identifier">content_tag</span>(<span class="ruby-identifier">:div</span>, <span class="ruby-identifier">ul</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;ajaxful-rating-#{!options[:dimension].blank? ?
+82:           &quot;#{options[:dimension]}-&quot; : ''}#{rateable.class.name.downcase}-#{rateable.id}&quot;</span>)
+83:       <span class="ruby-keyword kw">else</span>
+84:         <span class="ruby-identifier">ul</span>
+85:       <span class="ruby-keyword kw">end</span>
+86:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

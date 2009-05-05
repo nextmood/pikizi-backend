@@ -1,0 +1,12 @@
+
+<% if list_results.size == 0 %>
+	no results
+<% else %>
+<% for product in list_results.first %>
+	<%= product.label %>
+	<%= link_to_remote("<small>add</small>", :url => "/wishlists/add/#{product.id}")%>
+	<br/>
+<% end %>
+<% end %>
+
+<%= link_to_remote("back to the album", :url => "/wishlists/show_album" )%>

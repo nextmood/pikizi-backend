@@ -1,0 +1,11 @@
+
+	<b><%= review.author.screen_name %></b>
+	rated this product <%= as_stars(review.rating) %> (<%= format_date(review.updated_at) %>)
+	<% if review.content %>
+	 and said:			
+		<div class="show_value" style="max-height:110px; width:510px; overflow:<%= link_more ? 'hidden' : 'auto' %>; font-style:italic;">
+			<%= review.content %>
+		</div>	
+	<% end %>
+	<div style="margin-bottom:10px; width:100%; text-align:right;"><%= link_to("more...", "/reviews/#{review.id}") if link_more %></div>
+	

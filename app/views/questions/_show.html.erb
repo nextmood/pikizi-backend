@@ -1,0 +1,162 @@
+<div style="width:400px; height:300px; position:relative; border:1px solid black; margin:auto;
+	<% if question.display_background_image %>
+		background-image:url('/questions/<%= question.id %>/ibackground.jpg')
+	<% else %>	
+		background-color:lightgrey
+	<% end %>
+">
+
+<!-- ========================== General for all questions ========================== -->
+
+
+
+<!-- ========================== Question Poll ========================== -->	
+<% if question.is_a?(QuestionPoll) %>	
+	<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<span style="font-size:120%; font-weight:bold;"><%= question.label %></span>
+		<%= render(:partial => "main/media_show", :locals => {:ar_object => question}) if question.display_background_media %>
+	</div>
+	<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+		<% for choice in question.choices %>
+			<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+				<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>
+				<%= render(:partial => "main/media_show", :locals => {:ar_object => choice}) if question.display_choice_media %>					    
+				<%= choice.label if question.display_title %>
+				<br/>
+				<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+			</div>
+		<% end %>
+		<br/>
+	</div>
+	<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+	</div>
+
+<!-- ========================== Question Feature ========================== -->	
+<% elsif question.is_a?(QuestionFeature) %>	
+	<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= question.label %>
+	</div>
+	<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+		<% for choice in question.choices %>
+			<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+				<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>					    
+				<%= choice.label if question.display_title %>
+				<br/>
+				<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+			</div>
+		<% end %>
+		<br/>
+	</div>
+	<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+	</div>
+
+<!-- ========================== Question Filter ========================== -->	
+<% elsif question.is_a?(QuestionFilter) %>	
+	<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= question.label %>
+	</div>
+	<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+		<% for choice in question.choices %>
+			<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+				<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>					    
+				<%= choice.label if question.display_title %>
+				<br/>
+				<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+			</div>
+		<% end %>
+		<br/>
+	</div>
+	<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+	</div>
+
+			
+<!-- ========================== Question Tip ========================== -->	
+<% elsif question.is_a?(QuestionTip) %>
+	<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= question.label %>
+	</div>
+	<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+		<% for choice in question.choices %>
+			<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+				<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>					    
+				<%= choice.label if question.display_title %>
+				<br/>
+				<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+			</div>
+		<% end %>
+		<br/>
+	</div>
+	<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+	</div>	
+
+<!-- ========================== Question FeatureValues ========================== -->	
+<% elsif question.is_a?(QuestionFeatureValue) %>
+	<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= question.label %>
+	</div>
+	<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+		<% for choice in question.choices %>
+			<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+				<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>					    
+				<%= choice.label if question.display_title %>
+				<br/>
+				<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+			</div>
+		<% end %>
+		<br/>
+	</div>
+	<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+	</div>	
+	
+<!-- ========================== Question Generic ========================== -->	
+<% elsif question.is_a?(QuestionGeneric) %>
+		<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+			<%= question.label %>
+		</div>
+		<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+			<% for choice in question.choices %>
+				<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+					<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>					    
+					<%= choice.label if question.display_title %>
+					<br/>
+					<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+				</div>
+			<% end %>
+			<br/>
+		</div>
+		<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+			<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+		</div>
+		
+<!-- ========================== Question Trade Off ========================== -->	
+<% elsif question.is_a?(QuestionTradeOff) %>
+	<div style="position:absolute; top:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= question.label %>
+	</div>
+	<div style="position:absolute; top:30px; height:240px; left:0px; width:100%; text-align:center;">
+		<% for choice in question.choices %>
+			<div style="width:100px; border:1px solid green; margin:3px; padding:3px; text-align:center; display:inline-block;">
+				<%= render(:partial => "main/thumbnail", :locals => {:ar_object => choice, :no_link => true}) if question.display_thumbnail %>					    
+				<%= choice.label if question.display_title %>
+				<br/>
+				<%= render(:partial => "/main/fpa_cb", :locals => {:prefix => choice_dom_id(choice.id), :is_multiple => question.is_multiple }) %>
+			</div>
+		<% end %>
+		<br/>
+	</div>
+	<div style="position:absolute; bottom:0px; left:0px; width:100%; text-align:center; padding:5px;">
+		<%= link_to "Previous", "", :style=>"margin-right:20px;" %><%= link_to "Next Question", "" %>
+	</div>
+
+	
+<!-- ========================== Error ========================== -->	
+<% else %>
+	<div style="position:absolute; top:40px; left:100px;">Oups <%= "#{question.class} #{question.label} ##{question.id}" %></div>
+	
+<% end %>
+</div>

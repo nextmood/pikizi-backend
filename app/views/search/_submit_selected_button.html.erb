@@ -1,0 +1,11 @@
+<% nb_product_selected = search_box_parameters(:product_ids_selected).size %>
+<% if nb_product_selected > 0 %>	
+	<% label_button = search_box_parameters(:title_process_with_selected).gsub("#nb_products", nb_product_selected.to_s) %>
+	<%= link_to("<div>#{label_button}</div>",
+				search_box_parameters(:search_select_link),
+				:id => "submit_selected_button",
+				:class => "button") %>
+	
+<% else %>
+	<div id="submit_selected_button"></div>
+<% end %>

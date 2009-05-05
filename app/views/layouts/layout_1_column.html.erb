@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+	  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	  <title>PIKIZI: <%= controller.action_name %></title>
+	  <%= stylesheet_link_tag 'style' %>
+	  <%= javascript_include_tag :defaults %>
+
+	  <%= ajaxful_rating_style %>
+	
+	  <!-- visualize a tree as a table widget -->
+	  <%= javascript_include_tag 'treetable.js' %>	
+	
+	  <!-- pop up window -->
+	  <%= javascript_include_tag 'lightwindow.js' %>
+	  <%= stylesheet_link_tag 'lightwindow.css' %>	</head>
+	<body>
+		<div id="wrap">
+		    <div id="header">
+				<%= link_to(image_tag('h_logo.png', :border => 0), "/", :style => "position:absolute;left:0px; top:0px;") %>
+				<div id="nav">
+			        <ul>
+						<% if logged_in? -%>
+						  	Welcome <%= link_to_current_user :content_method => :login %>
+							<%= menu_item("/dashboard", "Dashboard") %>
+						  	<%= menu_item(logout_path, "Log out") %>
+						<% else -%>
+						  <%= menu_item(login_path, "Log in", { :no_separator => true}) %>
+						  <%= menu_item(signup_path, "Sign up", { :title => "Create an account"}) %>
+						<% end -%>
+			        </ul>
+			    </div>
+			</div>
+		
+			<% if flash[:error] %>
+				<div id="error" class="message"><%= flash[:error] %></div>
+			<% end %>
+			<% if flash[:notice] %>
+				<div id="notice" class="message"><%= flash[:notice] %></div>
+			<% end %>
+			
+		    <div id="main" style="width:100%;"><%= yield %></div>
+			
+		    <div id="footer">Footer clumn</div>
+		</div>
+	</body>
+</html>

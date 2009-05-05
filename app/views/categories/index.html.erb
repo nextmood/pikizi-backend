@@ -1,0 +1,8 @@
+<h1 style="margin-bottom:10px;">Categories...</h1>
+<% for root_category in @roots_categories%>
+	<h2><%= root_category.label %>:
+		<%= root_category.products_all.size %> products,
+		<%= root_category.questions_all.size %> questions
+	</h2>
+	<%= render(:partial => "categories/categories", :locals => {:categories => root_category.children}) %>
+<% end %>

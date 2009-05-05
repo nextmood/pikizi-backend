@@ -1,0 +1,12 @@
+<div id="list_tip_creation">
+	<% list_to_approve = Tip.list_to_approve_by_user(current_user, 10, product) %>
+
+	<% if list_to_approve.size > 0 %>
+
+		<ul class="list_sentence">	
+			<% for tip in list_to_approve %>
+				<%= render(:partial => "/opinions/create", :locals => { :tip => tip, :with_product_name => false, :html_tag => "li" })%>
+			<% end %>	
+		</ul>
+	<% end %>
+</div>

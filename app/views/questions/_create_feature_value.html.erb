@@ -1,0 +1,28 @@
+<!-- header of a question feature, the caller should call box_end -->
+
+<% question = nil unless !local_assigns[:question].nil? %> 
+<% category = question.category unless !local_assigns[:category].nil? %> 
+
+<!-- title -->
+<%= render(:partial => "/questions/choice_title", 
+		:locals => {:label => "Single topic", :category => category, :question => question })%>
+
+<!-- header -->
+<% if question %>
+	<div style="border-bottom:1px solid black; margin-bottom:10px;">
+		mapping the feature <%= feature_value_html(question.feature_value) if question.feature_value %>
+	</div>
+<% else %>
+	<i>question on a feature for a given product like: Do you want this feature?, Could you use the phone, even though this feature sucks?, Would you use this phone, because this feature is absolutely great?</i>
+	<% form_tag "/categories/#{category.id}/add_new_default_question", :id => "editor_feature_value", :style => "padding-bottom:100px; margin-top:10px; text-align:center;" do -%>
+		<%= hidden_field_tag(:question_type, "feature_value") %>
+		choose a product
+		<%= select_tag(:product_id, options_from_collection_for_select(category.products_genuine, "id", "label"), :id => "select_product", :style => "width:210px;") %>
+		and a feature
+		<%= select_tag(:feature_id, options_from_collection_for_select(category.features_availables, "first", "last"), :id => "select_feature", :style => "width:210px;") %>
+		<%= link_to_function("proceed", "document.getElementById('editor_feature_value').submit();")%>
+	<% end -%>
+<% end %>
+<!-- editor when question -->
+
+ 

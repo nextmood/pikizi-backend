@@ -1,0 +1,34 @@
+
+<% if domain.descriptor[:tag_ids].size > 0 %>
+	<ol style="list-style-position:inside; margin-left:20px;">
+		<% for tag_id in domain.descriptor[:tag_ids] %>
+			<li>
+			<% if tag = domain.get_tag_from_id(tag_id) %>
+				<% dom_id = "#{tag_dom_id(tag_id)}_label" %>
+				<b id="<%= dom_id %>"><%= tag.label %></b>
+				<%= in_place_editor(dom_id, :url => "/tags/set_tag_label/#{tag_id}") %>
+				<%= render(	:partial => "/main/media_edit", :locals => {
+								:ar_object => tag, 
+				    			:timestamp => nil,
+				    			:display_thumbnail => false,
+				    			:display_editor =>  false}) %>
+				&nbsp;
+				<%= link_to_remote("delete", :url => {:controller => "domains", :action => "delete_tag", :domain_id => domain.id, :tag_id => tag_id}, :style => "margin-left:10px;") unless is_binary %>	      
+			<% else %>
+				<span style="color:red;"><%= tag_id %></span>
+				<%= link_to_remote("delete", :url => {:controller => "domains", :action => "delete_tag", :domain_id => domain.id, :tag_id => tag_id}, :style => "margin-left:10px;") %>
+			<% end %>
+			</li>
+		<% end %>
+	</ol>
+<% else %>
+	<small>no tags ! </small>
+<% end %>
+
+<% unless is_binary %>
+	<% form_remote_tag(:url => "/domains/add_tag") do -%>
+		<%= hidden_field_tag(:domain_id, domain.id) %>
+		<%= text_field_tag(:new_tag_label, "new tag" )  %>				
+		<%= submit_tag "add_tag" %>
+	<% end -%>
+<% end %>

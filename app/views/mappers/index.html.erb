@@ -1,0 +1,24 @@
+<%= box_title %>
+	Mappers
+<%= box_content %>
+	<table border=1>
+		<tr>
+			<th>Category</th>
+			<th>Full pattern</th>
+			<th>Value pattern</th>
+			<th>Feature_id</th>
+			<th></th>
+		</tr>
+		<% for mapper in @mappers %>	
+			<tr>
+				<td><%= mapper.category.label %></td>
+				<td><%= mapper.pattern_full %></td>
+				<td><%= mapper.pattern_value %></td>
+				<td><%= mapper.feature_id %></td>
+				<td>
+						<%= select_tag(:feature_id, options_from_collection_for_select(mapper.category.features_availables, "first", "last"), :id => "select_feature", :style => "width:210px;", :onclick => "") %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+<%= box_end %>

@@ -1,0 +1,27 @@
+<%= box_title %>
+	<%= product.label %>
+<%= box_content %>
+
+<table>
+	<tr>
+		<td>
+			<%= render(:partial => "/main/thumbnail", :locals => {:ar_object => product }) %>
+		</td>
+		<td valign="top">
+			<div style="margin-left:5px;">
+				category <%= product.category.path_without_root %>
+				<%= link_to("<small>see matrix</small>", matrix_products_category_path(product.category_id) ) %>
+				<br/>
+				
+				<% if product.reviews.size == 0 %>
+					no reviews yet!
+				<% else %>
+					<%= link_to(pluralize(product.reviews.size, "review"), product_reviews_path(product)) %>
+					, average rating:
+					
+				<% end %>
+			</div>
+		</td>
+	</tr>
+</table>
+<%= box_end %>

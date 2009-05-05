@@ -1,0 +1,4 @@
+<%= feature.label %>
+<% if feature.is_a?(FeatureNumeric) or feature.is_a?(FeatureNumericInterval) or feature.is_a?(FeatureDate)  %>
+	<small><%= feature.domain.definition_as_html %></small>
+<% end %>

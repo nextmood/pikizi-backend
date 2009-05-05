@@ -1,0 +1,37 @@
+As of 8/14/2008
+
+_________________________________________________________________________
+WebSite
+- User (registered with confirmation)
+	- add all fields (zip, image, whatever)
+	- add the stateful machine
+- Catalog
+	- hierarchy
+	- add dimension mechanism (meta object with dynamic hierarchy...good!)
+	- amazon import
+		- add next/previous page in lookup
+		- filter only product new with price
+	- Reviews/Blog post
+	- Tip Management
+- Tracking mechanism	
+- Quizz/Wizzard : add a quizz(userxpodium) object (subtype by quizz 1,2,3 and add a state machine)
+- 
+
+_________________________________________________________________________
+Widget/API
+	- javascript / integration
+
+_________________________________________________________________________
+Engine
+- Autonomous Engine (own server)
+- API definition
+- heuristic (test & question's correlations feature)
+
+
+LookAndFeel -> http://extjs.com/
+Various
+- mole pluggin to monitor user
+- http://ror.leewbutler.com/2008/04/inputswithclass.html (class plugin for css ease)
+
+- finish website v0
+- website v1 (= css + wizard, page, friends, stuff)

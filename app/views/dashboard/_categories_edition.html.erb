@@ -1,0 +1,32 @@
+<% if categories.size > 0 %>
+<ul  style="list-style-type: none; margin-top:5px; margin-left: 0px; padding-left: 1.5em; text-indent: -1.5em;">
+<% for @category in categories %>
+	<li>
+		<table>
+			<tr>
+				<td>
+					<%= render(	:partial => "/main/media_edit", :locals => {
+									:ar_object => @category, 
+					    			:timestamp => nil,
+					    			:display_thumbnail => true,
+					    			:display_editor =>  false}) %>
+				</td>
+				<td valign="top" style="padding:5px;">
+					
+					<b><%= in_place_editor_field(:category, 'label_edit', {}, {:size => 60 }) %></b>
+					<small>
+					<%= @category.products_genuine.size %> products, 
+					<%= @category.questions_genuine.size %> questions in <%= @category.path_without_root %></small>
+					<ul style="margin-left:15px; margin-top:5px; list-style:square;">
+						<li><%= link_to("edit model <small>(#{@category.features_genuine.size} features)</small>", "/categories/#{@category.id}/features") %></li>
+						<li><%= link_to("create a new sub category", "/dashboard/add_sub_category/#{@category.id}") %></li>
+						<li><%= link_to("remove this category", "/dashboard/remove_category/#{@category.id}") %> </li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+		<%= render(:partial => "/dashboard/categories_edition", :locals => {:categories => @category.children})%>
+	</li>
+<% end %>
+</ul>
+<% end %>

@@ -1,0 +1,28 @@
+
+<table>
+	<tr><td colspan="2">
+		<%= link_to("<b>Import this Amazon's product into Pikizi's #{@category.path}.</b",
+					"/create_product_from_amazon/#{@category.id}/#{@amazon_product[:asin]}") %>
+	</td></tr>
+	<tr>
+		<td valign="top"><img src="<%= @amazon_product[:image] %>" /></td>
+		<td>
+			<a href="<%= @amazon_product[:detail_page_url] %>"><%= @amazon_product[:title] %></a>
+			<br/>Price:<b><%= number_to_currency(@amazon_product[:price]) %></b>, in Amazon category:<b><%= @amazon_product[:product_group] %></b> by <b><%= @amazon_product[:manufacturer] %></b>
+			<h2>Similar Products</h2>
+			<ul>
+				<% for similar_product in @amazon_product[:similar_products] %>
+					<li><a href="/search_amazon/<%= @category.id %>/<%= similar_product[:asin] %>"><%= similar_product[:title] %></li>
+				<% end %>
+			</ul>
+		</td>
+	</tr>
+</table>
+
+
+<h2>Descriptions</h2>
+<div>			
+<% for description in @amazon_product[:descriptions] %>
+	From:<%= description[:source] %>:<br/><i><%= description[:content] %></i>
+<% end %>
+</div>

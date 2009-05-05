@@ -1,0 +1,3 @@
+@question.operate do |image|
+    image.resize '400x300', :crop => true
+end

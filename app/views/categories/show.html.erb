@@ -1,0 +1,13 @@
+
+<h1>Category:<b><%=h @category.label %></b></h1>
+
+<h2>List of products</h2>
+<ul class="products_list">
+	<% for product in @category.products_genuine %>
+			<li><%= product.label %></li>
+	<% end %>
+</ul>
+
+<h2>List of questions</h2>
+
+

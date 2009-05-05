@@ -1,0 +1,33 @@
+
+<ul id="tree_<%= dom_id %>"
+	style="list-style-type: none; margin-left: 0; padding-left: 1.5em; text-indent: -1.5em; display:<%= display %>">
+<% for feature in features %>
+	<% feature_value = feature.feature_values.first %>
+	<li>
+
+		<% fake_rating = rand(5) + 1 %>
+		<% if fake_rating <= 1 %>
+			<%= image_tag('icons/feature_trash.png', :border => 0) %>
+		<% elsif fake_rating >= 5 %>
+			<%= image_tag('icons/feature_hot.png', :border => 0) %>
+		<% else %>
+			<%= image_tag('icons/feature_blank.png', :border => 0) %>
+		<% end %>
+		
+		<!-- attribute editor -->
+		<%= feature_value.feature.label %>
+		<%= link_to_function(image_tag("icons/drill_down.gif", :border => 0), "document.getElementById('tree_#{feature_value.id}').toggle();") if feature.node_children.size > 0 %>
+		<%= feature_value.value_as_string %>
+		
+						
+		<!-- display sub attributes -->
+		<% if feature.node_children.size > 0 %>
+			
+			<%= render(:partial => "/reviews/feature_average", 
+						:locals => {:features => feature.node_children, :display => 'none', :dom_id => feature_value.id }) %>
+		<% end %>
+		
+		<%= render(:partial => "/reviews/feature_compare_average", :locals => {:display => "none", :feature_value => feature_value})%>
+	</li>
+<% end %>
+</ul>

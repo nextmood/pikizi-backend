@@ -1,0 +1,22 @@
+<ul id="<%= choice_id %>_list" class="dropzone_list" style="min-height:400px;" >
+	<% for object in objects %>
+		<% if object.is_a?(Product) %>			
+			<%= render(:partial => "/products/icon",
+					   :locals => {:product => object, :html_tag => "li", :is_draggable => true, :question_id => question.id } ) %>
+		<% elsif object.is_a?(Tip) %> 
+			<%= render(:partial => "/tips/icon",
+					   :locals => {:tip => object, :html_tag => "li", :is_draggable => true } ) %>
+		<% elsif object.is_a?(Opinion) %>
+			<%= render(:partial => "/opinions/icon",
+					   :locals => {:opinion => object, :html_tag => "li", :is_draggable => true } ) %>
+		<% end %>
+	<% end %>
+</ul>
+
+<%= drop_receiving_element("#{choice_id}_list", # The id of the drop zone
+  :accept => "object_draggable", 
+  :url    => { :controller => "tips", :action => "recommend_product", :choice_id => choice_id  },  # The action to call
+  #:url    => "/recommend_product/#{choice_id}/",
+  :with   => "'dom_id=' + (element.id)"  # The query string parameters
+
+)%>

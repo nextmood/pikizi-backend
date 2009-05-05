@@ -1,0 +1,42 @@
+<!-- 
+	display a flex image or a link to edit the image/media
+	parameters: 
+	ar_object, an active record with a fleximage
+	
+-->
+<% time_stamp = nil if local_assigns[:time_stamp].nil? %>
+<% title = "???" if local_assigns[:title].nil? %>
+<% margin_left = 0 if local_assigns[:margin_left].nil? %>
+<% dom_form_id =  "form_#{MainController.image_domid(ar_object)}" %>
+
+<div id="<%= MainController.image_domid(ar_object) %>" style="margin-bottom:0px; margin-left:<%= margin_left %>px;">
+	<!-- see image (if any) -->
+	<% if ar_object.has_image? %>
+		<%= link_to_function("change&nbsp;#{title}", "document.getElementById('#{dom_form_id}').show();") %>
+		&nbsp;
+		<a 	href="<%= "/#{ar_object.class.table_name}/#{ar_object.id}/thumbnail.jpg" %>" 
+			class="lightwindow page-options" 
+			params="lightwindow_width=425,lightwindow_height=340,lightwindow_loading_animation=false" 
+			title="associated image"><%= image_tag("open.gif", :border => 0) %></a>
+	<% else %>
+		<%= link_to_function("#{title}", "document.getElementById('#{dom_form_id}').show();") %>
+	<% end %>
+	
+	
+	<!-- form to edit the image -->		
+	<% form_remote_tag(:url => "/image_url_upload/#{ar_object.class}/#{ar_object.id}", 
+		:html => { :id => dom_form_id, :style => "display:none; border:1px solid black; padding:5px; margin-bottom:5px;"}) do -%>
+		<small>url http://.... of the image</small>
+		<%= text_field_tag("image_file_url", nil, :size => 60) %>
+		<%= hidden_field_tag(:title, title, :size => 60) %>
+		<%= submit_tag("ok") %>
+		<% if time_stamp %>
+			<small>updated @ <%= time_stamp %></small>
+		<% end %>
+		
+		<!-- link to close the form  -->		
+		<%= link_to_function("cancel", "document.getElementById('#{dom_form_id}').hide();") %>
+		
+  	<% end -%>
+
+</div>

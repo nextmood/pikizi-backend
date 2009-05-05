@@ -1,0 +1,47 @@
+<%= box_title %>
+	Matrix for : <%= @category.label %>
+<%= box_content %>
+
+<% form_tag "/categories/#{@category.id}/matrix_products" do -%>
+	<%= fpa_select_helper("product_ids_filter", @products_all, @products, "label", :multiple => true) %>	
+	<%= submit_tag 'Filter' %>
+<% end -%>
+
+<hr/>
+
+<div style="max-width:790px; overflow:auto;">
+<table border=1 id="main_table">
+	<colgroup>
+	      <col width="200" />
+	      <col width="0*">
+	</colgroup>
+	<tr>
+		<th>feature/product</th>
+		<% for product in @products %>
+			<th width="120">
+				<% if logged_in? %>
+					<%= link_to(product.label, edit_product_path(product), :style => "font-weight:normal;") %>
+				<% else %>
+					<%= link_to(product.label, product_path(product), :style => "font-weight:normal;") %>
+				<% end %>
+			</th>
+		<% end %>
+	</tr>
+	
+	<% for category, feature_roots in  @category.self_and_ancestors.collect { |cat| [cat, Feature.node_roots(:conditions => "category_id=#{cat.id}")] } %>
+		<% if feature_roots.size > 0 %>
+			<% tree_id = "table_cat_#{category.id}" %>
+			<tr>
+				<td colspan="<%= @products.size + 1 %>" style="background-color:lightgrey;">
+					category:<%= category.path_without_root %> 
+				</td>
+			</tr>
+			<%= render(	:partial => "/categories/matrix_products_bis",
+						:locals => {:products => @products, :features => feature_roots, :path => [], :tree_id => tree_id, :depth => 0})%>
+		<% end %>
+	<% end %>
+	
+		
+</table>
+</div>
+<%= box_end %>

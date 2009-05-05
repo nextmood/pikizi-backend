@@ -1,0 +1,23 @@
+<div id="create_or_update_review_form" style="display:<%= hidden ? 'none' : 'block' %>;">
+<h2><%= review.new_record? ? "Create a review" : "Update your review" %></h2>
+
+<div style="background-color:red;"><%= flash[:error] %></div>
+<div style="background-color:green;"><%= flash[:notice] %></div>
+<% form_remote_tag :url => "/user_update_review" do -%>
+	<div>
+		<%= hidden_field_tag :is_new , review.id, :size => 5 %>
+		<%= hidden_field_tag :product_id , review.product_id, :size => 5 %>
+		<br/>
+		<span style="margin-right:2px;">Rating:</span><%= text_field_tag :rating , review.rating || 3, :size => 1 %>
+		<%= image_tag "icons/star.png", :border => 0 %>
+		<span style="margin-left:10px;">Summary:</span><%= text_field_tag :summary , review.summary, :size => 60 %>
+		<%= submit_tag (review.new_record? ? "Create" : "Update") %>
+		<br/>
+		<span style="margin-right:3px;">Url</span><%= text_field_tag :url , review.url, :size => 75 %>
+		<br/>
+		Your review (html friendly)
+		<br/>
+		<%= text_area_tag :content, review.content, :size => "60x2" %>
+	</div>
+<% end -%>
+</div>

@@ -1,0 +1,44 @@
+
+<<%= html_tag %>	
+	id="<%= tip_dom_id(tip.id) %>" 
+	<% if is_draggable %>
+		class="object_draggable"
+	<% end %>
+	style="position:relative; width:80px; height:80px; border: 1px solid black;"
+	>
+	
+	<% if is_draggable %>
+		<%= image_tag("/products/#{tip.product_id}/thumbnail.jpg", :border => 0, :style => "position:absolute; top:0px; right:0px;") %>
+	<% else %>
+		<%= link_to(image_tag("/products/#{tip.product_id}/thumbnail.jpg", :border => 0),
+					"/products/#{tip.product_id}", 
+					:style => "position:absolute; top:0px; right:0px;") %>
+	<% end %>
+	
+	<% if is_draggable %>
+		<div style="position:absolute; top:0px; left:0px;">
+	    	<%= link_to(image_tag("icons/details_product.png", :border => 0),
+						"/products/#{tip.product_id}", 
+						:style => "position:absolute; top:0px; left:0px;") %>
+	    </div>
+	<% else %>
+		<div style="position:absolute; top:0px; right:0px; background-color:white;">
+	    	<%= number_to_currency(tip.product.price) %>
+	    </div>
+	<% end %>
+		
+	<div style="position:absolute; width:80px; bottom:0px; left:0px; background-color:<%= color_of_state(tip.current_state) %>;"
+		title="all=<%= tip.weighted_sum_all %> good=<%= tip.weighted_sum_agree %>, bad=<%= tip.weighted_sum_disagree %>, unknown=<%= tip.weighted_sum_unknown %>, n/a=<%= tip.weighted_sum_nonapplicable %>, c=<%= (tip.confidence * 100).to_i %>%"
+		>
+    	<%= tip.current_state %>
+    </div>
+
+	<div style="position:absolute; top:0px; right:0px; background-color:white;  border-left: 1px solid black; border-bottom: 1px solid black;">
+		<span style="font-weight:bold; margin:3px;"><%= tip.choice_code_average_label %></span>
+	</div>
+
+
+</<%= html_tag %>>
+
+<%= draggable_element(tip_dom_id(tip.id), :revert => true ) if is_draggable %>
+

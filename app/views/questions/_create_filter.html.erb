@@ -1,0 +1,25 @@
+<!-- header of a question feature, the caller should call box_end -->
+
+<% question = nil unless !local_assigns[:question].nil? %> 
+<% category = question.category unless !local_assigns[:category].nil? %> 
+
+<!-- title -->
+<%= render(:partial => "/questions/choice_title", 
+		:locals => {:label => "Filter Question", :category => category, :question => question })%>
+
+<!-- header -->
+<% if question %>
+	<div style="border-bottom:1px solid black; margin-bottom:10px;">
+		filtering on feature <%= question.feature.path if question.feature %>
+	</div>
+<% else %>
+	<% form_tag("/categories/#{category.id}/add_new_default_question", :id => "editor_filter", 
+		:style => "padding-bottom:100px;") do -%>
+		<%= hidden_field_tag(:question_type, "filter")%>
+		Each choice of the question maps a subset of values from the feature:
+		<%= select_tag(:feature_id, options_from_collection_for_select(category.features_availables, "first", "last"), :id => "select_feature", :style => "width:210px;") %>
+		<%= link_to_function("go", "document.getElementById('editor_filter').submit();") unless question %>
+	<% end -%>
+<% end %>
+<!-- editor when question -->
+

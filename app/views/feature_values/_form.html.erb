@@ -1,0 +1,72 @@
+<!-- return form elements needed to edit the value of a feature for a given product -->
+
+<% name = feature_value_dom_id(feature_value.id) %>
+<% current_value = feature_value.value_genuine %>
+<% feature = feature_value.feature %>
+<% matrix_edit = false unless !local_assigns[:matrix_edit].nil? %>
+
+<span class="feature_value_edit" >
+					
+<% if feature.domain %>
+
+	<% if feature.is_a?(FeatureNumeric) %>
+		<!-- ============== Feature Numeric ================ -->
+		<span class="editable_value" id="numeric_<%= name %>"><%= current_value || "N/A" %></span>
+		<%= in_place_editor("numeric_#{name}", :url => "/feature_values/set_feature_value_value_genuine/#{feature_value.id}") %>
+	<% elsif feature.is_a?(FeatureNumericInterval) %>
+		<!-- ============== Feature Numeric Interval ================ -->
+		<span class="editable_value" id="numeric_interval_<%= name %>"><%= (current_value and current_value.size == 2) ? "[#{current_value.first} -- #{current_value.last}]" : "N/A" %></span>
+		<%= in_place_editor("numeric_interval_#{name}", :url => "/feature_values/set_feature_value_value_genuine/#{feature_value.id}") %>
+	<% elsif feature.is_a?(FeatureBinary) %>
+		<!-- ============== Feature Binary ================ -->
+		<% for tag_id in feature.domain.tag_ids %>
+			<%= radio_button_tag(name, tag_id, tag_id == current_value, 
+					:onclick => remote_function(:url => "/feature_value_update_tag/#{feature_value.id}/#{tag_id}/")) %> 
+			<span class="editable_value"><%= feature.domain.get_tag_from_id(tag_id).label %></span>
+		<% end %>
+		
+	<% elsif feature.is_a?(FeatureTag) %>
+		<!-- ============== Feature Tag ================ -->
+		<span class="editable_value">
+			<%= select_tag(	name, options_for_select(feature.domain.get_tags_for_select, current_value), 
+				:onchange => remote_function(:url => "/feature_value_update_tag/#{feature_value.id}/",
+				 							:with => "'?tag_id=' + (this.value)")) %>
+		</span>
+	<% elsif feature.is_a?(FeatureTags) %>
+		<!-- ============== Feature Multiple Tags ================ -->
+		<% for tag_id in feature.domain.tag_ids %>
+			<% current_value ||= [] %>
+			<% current_value = [current_value] unless current_value.is_a?(Array) %>
+			<%= check_box_tag(name, tag_id, current_value.include?(tag_id), 
+					:onclick => remote_function(:url => "/feature_value_update_tags/#{feature_value.id}/#{tag_id}")) %> 
+			<span class="editable_value"><%= feature.domain.get_tag_from_id(tag_id).label %></span>
+		<% end %>
+		
+	<% elsif feature.is_a?(FeatureText) %>
+		<!-- ============== Feature Text ================ -->
+		<span class="editable_value" id="text_<%= name %>"><%= current_value || "N/A" %></span>
+		<%= in_place_editor("text_#{name}", :url => "/feature_values/set_feature_value_value_genuine/#{feature_value.id}") %>
+
+	<% elsif feature.is_a?(FeatureTextArea) %>
+		<!-- ============== Feature Text Area ================ -->
+		<span class="editable_value"><%= text_field_tag(name, current_value || "N/A") %></span>
+		
+	<% elsif feature.is_a?(FeatureDate) %>
+		<!-- ============== Feature Date ================ -->
+		<% form_remote_tag(:url => "/update_current_value", :html => {:style => "display:inline;"}) do -%>
+			<%= hidden_field_tag(:feature_value_id, feature_value.id) %>
+			<span class="editable_value"><%= select_date(current_value, :prefix => name) %></span>
+			<%= submit_tag "ok" %>
+		<% end -%>
+
+	<% else %>
+		<!-- ============== Feature Unknown ================ -->
+		<span class="editable_value"><%= text_field_tag(name, current_value) %></span>
+	<% end %>
+	
+<% end %>
+</span>
+
+
+
+

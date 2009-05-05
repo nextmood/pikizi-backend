@@ -1,0 +1,3 @@
+	<%= text_field_tag choice_id, choice_label, :size => 7 %>
+	<%= link_to("remove choice",
+				:controller => "questions", :action => "remove_choice", :choice_id => choice_id) if question and question.nb_choices > 2  %>

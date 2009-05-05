@@ -1,0 +1,38 @@
+
+<<%= html_tag %>	
+	<% if is_draggable %>
+		id="<%= compute_draggable_id(product.id, question_id) %>"
+		class="object_draggable"
+	<% else %>
+		id="<%= "product_icon_#{product.id}" %>"
+	<% end %>
+	style="position:relative; width:80px; height:80px; border: 1px solid black;"
+	>
+	
+	<% if is_draggable %>
+		<%= image_tag("/products/#{product.id}/thumbnail.jpg", :border => 0, :style => "position:absolute; top:0px; right:0px;") %>
+	<% else %>
+		<%= link_to(image_tag("/products/#{product.id}/thumbnail.jpg", :border => 0),
+					product_path(product), 
+					:style => "position:absolute; top:0px; right:0px;") %>
+	<% end %>
+	<% if is_draggable %>
+		<div style="position:absolute; top:0px; left:0px;">
+	    	<%= link_to(image_tag("icons/details_product.png", :border => 0),
+						product_path(product), 
+						:style => "position:absolute; top:0px; left:0px;") %>
+	    </div>
+	<% end %>
+	<% unless product.media_url.blank? %>	
+		<a 	href="<%= product.media_url %>" 
+			class="lightwindow page-options" 
+			params="lightwindow_width=425,lightwindow_height=340,lightwindow_loading_animation=false" 
+			title="<%= product.label %>"
+			style="position:absolute; top:20px; right:0px;">
+		  <%= image_tag "icons/media.jpg", :border => 0 %>
+		</a>
+	<% end %>
+</<%= html_tag %>>
+
+<%= draggable_element(compute_draggable_id(product.id, question_id), :revert => false ) if is_draggable %>
+

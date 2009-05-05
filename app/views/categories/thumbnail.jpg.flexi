@@ -1,0 +1,3 @@
+@category.operate do |image|
+    image.resize '80x80', :crop => true
+end

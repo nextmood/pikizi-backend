@@ -1,0 +1,39 @@
+<%= render(:partial => "/products/short", :locals => {:product => @review.product })%>
+
+<%= box_title %>
+	Edit <%= @review.author.screen_name %>'s review&nbsp;
+	<%= link_to("show", review_path(@review), :style => "font-weight:normal; font-size:small;") %>
+<%= box_content %>
+
+	<div class="feature_editor">
+		<%= label_tag :rating, nil, :class => "feature_label" %>		
+		<span class="editable_value">
+			<%= in_place_editor_field :review, 'rating', {}, {:size => 2} %>
+			<%= image_tag("icons/star.png", :border => 0) %>
+		</span>
+		<%= link_to("<small>computation avg</small>", :controller => "reviews", :action => "compute_rating", :id => @review.id) %>
+	</div>
+
+	<div class="feature_editor">
+		<% @review.content = "enter a summary for your..." unless @review.content %>
+		<%= label_tag :description, nil, :class => "feature_label" %>		
+		<div class="editable_value" style="max-height:200px; width:525px; overflow:auto; margin-bottom:10px;">
+			<%= in_place_editor_field :review, 'content', {}, {:rows => 5} %>
+		</div>
+	</div>
+
+	<div>You can also rate the features below or compare with others products.</div>
+
+	
+<!-- Product review  features-->
+
+<% for category, feature_roots in @review.get_feature_reviews_roots %>
+	<% if feature_roots.size > 0 %>
+		<div class="feature_category"><%= category.label %>&nbsp;features</div>
+		<%= render(:partial => "/reviews/feature_edit", :locals => {:features => feature_roots, :display => 'true', :dom_id => ""})%>
+	<% end %>
+<% end %>
+
+<%= box_end %>
+
+

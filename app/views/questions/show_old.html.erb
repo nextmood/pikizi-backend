@@ -1,0 +1,24 @@
+<h1>Question #<%= @question.id %></h1>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+
+<p>
+	Author:<b><%=h @question.author_id %></b>&nbsp;
+	Url:<b><%=h @question.url %></b>&nbsp;
+</p>
+<p>Computation based on:<b><%= TimeBuckets.bucket_reference_text %></b> manual priority=<b><%= @question.manual_priority %></b></p>
+<p>
+	nb_votes_total:<b><%= @question.nb_votes_total %></b>&nbsp;
+	(<b><%= @question.nb_votes_valid %> valid</b>=<b><%= @question.nb_votes_ok %>:ok</b> + <b><%= @question.nb_votes_ko %>:ko</b> & <b>oo=<%= @question.nb_votes_oo %></b>)
+</p>
+<p>
+	ranking:<b><%= @question.ranking %></b></td>
+	trend:<b><%= @question.trend %></b></td>
+	discrimination:<b><%= "%5.02f" % @question.discrimination %></b>&nbsp;
+	interest:<b><%= "%5.02f" % @question.interest %></b>&nbsp;
+	popularity:<b><%= "%5.02f" % @question.popularity %></b>&nbsp;
+	confidence:<b><%= "%5.02f" % @question.confidence %></b>
+</p>
+
+
+

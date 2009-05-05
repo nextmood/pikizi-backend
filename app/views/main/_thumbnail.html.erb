@@ -1,0 +1,48 @@
+<!-- the thumbnail image for an active record with a fleximage declaration
+	need to be cached by fragment  FPA TO DO 
+	the only way to display a thumbnail (if u want the cache to be efficient !)
+	expected parameters: ar_object
+-->
+
+<% is_draggable = nil unless !local_assigns[:is_draggable].nil? %> 
+<% no_link = nil unless !local_assigns[:no_link].nil? %>
+<% corner_link = nil unless !local_assigns[:corner_link].nil? %> 
+
+<% prefix = nil unless !local_assigns[:prefix].nil? %>
+<% is_a_product = ar_object.is_a?(Product) %>
+<% timestamp = nil unless !local_assigns[:timestamp].nil? %>
+
+<% (prefix = "dg"; no_link = true) if is_draggable %>
+<% dom_id = "#{prefix}_#{ar_object.id}" if prefix %>
+<% container_tag = "div" unless !local_assigns[:container_tag].nil? %>
+
+
+<!--  HTML PART -->
+<<%= container_tag %>
+	<%= " id=\"#{prefix}_#{ar_object.id}\"" if prefix %>
+	<%= " class=\"object_album\"" %>
+	title="<%= ar_object.label if is_a_product %>"
+	>
+	<% if no_link %>
+		<%= render(:partial => "/main/image80x80", :locals => {:ar_object => ar_object, :timestamp => timestamp}) %>
+	<% else %>
+		<%= link_to(render(:partial => "/main/image80x80", :locals => {:ar_object => ar_object, :timestamp => timestamp}),
+					"/#{ar_object.class.table_name}/#{ar_object.id}", 
+					:style => "position:absolute; top:0px; right:0px;") %>
+	<% end %>
+	
+	<% if is_a_product %>
+		<div style="position:absolute; top:0px; right:0px; background-color:white;">
+			<!-- <%= prefix ? "#{prefix}_#{ar_object.id} " : "nil" %> -->
+	    </div>
+	<% end %>
+	
+	<% if corner_link %>
+		<%= link_to_remote(image_tag("icons/close.gif", :border => 0), 
+				{:url => corner_link}, :style => "position:absolute; bottom:0px; right:0px;") %>
+	<% end %>
+	
+</<%= container_tag %>>
+
+<%= draggable_element("dg_#{ar_object.id}", :revert => true ) if is_draggable %>
+

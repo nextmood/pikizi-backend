@@ -1,0 +1,15 @@
+
+
+<%= box_title %>
+	Looking for better tips?
+<%= box_content %>
+	<div id="quizzes_home_page">
+		<div>Quiz 1<br/>is this product right for you?</div>
+		<div>Quiz 2<br/>match products to your needs</div>
+		<div>Quiz 3<br/>find the perfect gift</div>
+	</div>
+
+<%= box_end %>
+
+<%= render(:partial => "search/formbox", :locals => { :search_string => "", :category => Category.root, :products => nil })%>
+

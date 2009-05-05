@@ -1,0 +1,10 @@
+<%= box_title %>
+	Sign up as a new user
+<%= box_content %>
+	<% @user.password = @user.password_confirmation = nil %>
+	<% form_for(@user, :html => { :multipart => true }) do |f| -%>
+
+		<%= render(:partial => "users/form.html.erb", :locals => { :user => @user, :f => f })%>
+		<p><%= submit_tag 'Sign up' %></p>
+	<% end -%>
+<%= box_end %>

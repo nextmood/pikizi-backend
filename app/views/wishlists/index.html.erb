@@ -1,0 +1,14 @@
+<%= box_title %>
+	<%= current_user.screen_name %>'s wishlist
+<%= box_content %>
+<% unless @wishlist.products.empty? %>
+	<ul class="dropzone_list">
+		<% for product in @wishlist.products %>
+			<%= render(	:partial => "/products/icon", 
+						:locals => {:product => product, :html_tag => "li", :is_draggable => false}) %>
+		<% end %>
+	</ul>
+<% else %>
+	Empty wish list
+<% end %>
+<%= box_end %>

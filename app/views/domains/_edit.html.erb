@@ -1,0 +1,47 @@
+
+
+<div class="feature_definition_editor" id="<%= domain_dom_id(domain.id) %>">	
+	
+	<% if @last_updated %>
+		<small style="margin-left:30px;">last updated @ <%= @last_updated %></small>
+	<% end %>
+	<!-- edit the definition of a domain -->
+	
+	<!-- Domain Numeric or Interval -->
+	<% if domain.is_a?(DomainNumeric) %>
+		<% form_remote_tag(:url => "/domains/update_definition/#{domain.id}", :html => {}) do -%>		
+		min <%= text_field_tag('options[min]', domain.descriptor[:min], :size =>5 ) %> 
+		max <%= text_field_tag('options[max]', domain.descriptor[:max], :size =>5) %> 
+		format <%= text_field_tag('options[format]', domain.descriptor[:format], :size =>10) %>
+		<%= submit_tag "update definition" %>
+		<% end -%>
+	
+	<!-- Domain Binary -->
+	<% elsif domain.is_a?(DomainBinary) %>
+		<%= render(:partial => "/domains/edit_tags", :locals => { :domain => domain, :is_binary => true }) %>
+		
+	<!-- Domain Date -->	
+	<% elsif domain.is_a?(DomainDate) %>
+		<% form_remote_tag(:url => "/domains/update_definition/#{domain.id}", :html => {}) do -%>		
+		min <%= select_date( domain.descriptor[:min], :prefix => 'min') %>
+		<br/>
+		max <%= select_date( domain.descriptor[:max], :prefix => 'max') %>
+		<br/>
+		format <%= text_field_tag('options[format]', domain.descriptor[:format], :size =>10) %>
+		<%= submit_tag "update definition" %>
+		<% end -%>
+	
+	<!-- Domain Enumerated -->	
+	<% elsif domain.is_a?(DomainEnumerated) %>
+		<%= render(:partial => "/domains/edit_tags", :locals => { :domain => domain, :is_binary => false }) %>
+	
+	<!-- Domain Text or TextArea -->		
+	<% elsif domain.is_a?(DomainText) or domain.is_a?(DomainTextArea) %>
+	
+	<!-- Domain Unknown -->
+	<% else %>	
+		Error class <%= domain.class %> domain = <%= domain %>
+	
+	<% end %>
+</div>	
+

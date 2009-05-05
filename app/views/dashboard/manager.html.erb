@@ -1,0 +1,26 @@
+<h1>DashBoard Manager</h1>
+<br/>
+<table>
+	<tr>
+		<td><%= image_tag("/categories/#{@product.category.id}/thumbnail.jpg")%></td>
+		<td>
+			Category <%= @product.category.path %>
+			<ul>
+				<li>edit...</li>
+				<li>edit model <%= link_to("#{@product.category.features_genuine.size} features", "/categories/#{@product.category_id}/features") %></li>
+				<li>edit questions</li>
+			</ul>
+		</td>
+	</tr>
+	<tr>
+		<td><%= image_tag("/products/#{@product.id}/thumbnail.jpg")%></td>
+		<td>
+			Product <%= @product.label %>
+			<ul>
+				<li><%= link_to("manage...", "/products/#{@product.id}/edit") %></li>
+				<li>manage reviews</li>
+			</ul>
+		</td>
+	</tr>
+</table>
+

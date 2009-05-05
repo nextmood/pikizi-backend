@@ -1,0 +1,52 @@
+
+<%= box_title("id=\"the_search_box\"") %>
+	<%= products ? search_box_parameters(:search_box_parameters_results) : search_box_parameters(:search_box_parameters_genuine) %>
+<%= box_content %>
+	
+	<%= products ? search_box_parameters(:postfix_html_results) : search_box_parameters(:postfix_html_genuine) %>
+	
+	<h2><%= products ? search_box_parameters(:title_2_search_form_results) : search_box_parameters(:title_2_search_form_genuine) %></h2>
+
+	<% form_remote_tag :url => {:controller => "search", :action => "execute" } do -%>
+
+		<input type="text" name="search_string" size="60" value="<%= search_string || Search.default_label %>" />
+		<input type="hidden" name="search_in_category_id" size="10" value="<%= category.id %>" />
+		<%= submit_tag "search" %>
+		<% if products %>
+			<br/><%= link_to_remote("back to category search", :url => {:controller => "search", :action => "back_to_search_in_category" })%>
+		<% end %>
+		<% unless products %>
+			<h2 style="margin-top:15px;"><%= search_box_parameters(:title_2_search_categories) %></h2>
+			<%= render(:partial => "categories/brothers.html.erb", :locals => { :category => category  })%>
+		<% end %>
+	<% end -%>
+
+	<!-- Search results -->
+	<% if products %>
+	
+		<h2 style="margin-top:15px;"><%= search_box_parameters(:title_1_search_result) %></h2>
+		<% if products.size > 0 %>
+			<p><%= pluralize(products.size, "product") %> match your search</p>
+			<div>
+				<% for product in products %>
+					<%= render(:partial => 'search/product_result', :locals => { :product => product }) %>
+				<% end %>
+			</div>
+		<% else %>
+			<p>No product
+				<%= " for search <b>\"#{search_string}\"</b>" if search_string and search_string != "" %> 
+				in category <b><%= category.label %></b>
+			</p>
+		<% end %>
+		
+		<div>
+			Don’t find the product or service you’re looking for?
+			<ul style="margin-left:30px;">
+				<li><%= link_to("Lookup in Amazon Catalog", "/search_amazon/#{category.id}") %></li>
+				<li><%= link_to("Submit it", add_new_product_category_path(category)) %></li>
+			</ul>			
+			<%= render(:partial => "/search/submit_selected_button")%>
+		</div>
+	<% end %>	
+
+<%= box_end %>

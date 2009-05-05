@@ -1,0 +1,26 @@
+- envoyer un email eric, cleanup the review mechanism (only -1, 0, +1) sur les features... et preparation pour eric
+- thibault ok
+- a table view/not so easy with hierarchy
+
+== Quizz
+- questions editor (the quizz concept) Quizz et QuizzByUser (rename)
+- a Quizz is a set of question, 
+- each author has a least a default quizz where all its authored questions are added
+- you can add (questions from others) or remove questions from your quizz + various parameters
+- you then active your quizz for use by customer
+- system user owns several quizzes (one per category), made of all questions in this category and ancestors.
+- list of product is computed dynamically
+
+
+short term
+- fix the interval raw-value input
+- add_property (is_ratable, is comparable) both of them per default yes
+- test the text field, text-area field
+
+- add comparaison for feature reviews (edit and show, average ?)
+
+
+
+
+nasty bug: http://rails.lighthouseapp.com/projects/8994/tickets/1339-arbase-should-not-be-nuking-its-children-just-because-it-lost-interest
+force to run in config.calsses = true

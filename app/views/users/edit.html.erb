@@ -1,0 +1,10 @@
+<%= box_title %>
+	Editing User
+<%= box_content %>
+<% form_for(@user, :html => { :multipart => true }) do |f| %>
+  <%= render(:partial => "users/form.html.erb", :locals => { :user => @user, :f => f })%>
+	<br/>
+  <p><%= f.submit "Update User" %></p>
+<% end %>
+<%= box_end %>
+

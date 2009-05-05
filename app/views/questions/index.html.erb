@@ -1,0 +1,49 @@
+
+<%= box_title %>
+	 Create a new question  
+<%= box_content %>
+	<% form_tag "/categories/#{@category.id}/add_new_default_question", 
+		:id => "form_create_question", :style => "" do -%>
+		in category <b><%= @category.path_without_root %></b> of type
+		<%= select_tag(:question_type, options_from_collection_for_select([
+			["Poll", "poll"],
+			["Feature", "pre_feature"],
+			["Filter", "pre_filter"],
+			["Trade Off", "pre_tradeoff"],
+			# ["Tip", "pre_tip"],
+			["Single Topic", "pre_feature_value"],
+			["Generic", "generic"]
+			],
+			 "last", "first"), :style => "width:210px;") %>			
+		<%= link_to_function("go", "document.getElementById('form_create_question').submit();")%>
+	<% end -%>
+
+	
+<%= box_end %>
+
+<!-- Listing Questions and adding a question -->
+
+<%= box_title %>
+	Questions <small>in</small><span style="font-size:10px; color:black;">
+	<%= select_tag(:category_id, 
+		options_from_collection_for_select(Category.root.self_and_descendants[1..10000], "id", "path_without_root", @category.id),
+		:onchange => "window.location.href='/categories/' + this.value + '/questions'") %>
+	</span>
+<%= box_content %>
+	<% if @questions.size > 0 %>
+		<ul style="margin-left:20px; margin-top:10px;">	
+			<% for question in @questions %>
+				<li style="list-style:none;">
+					<%= "#{question.label}" %>
+					<%= link_to("#{question.class_label}-#{question.id}", edit_question_path(question), :style => "background-color:#{color_of_state(question.current_state)}; font-size:80%;") %>
+					<small><%= "by #{question.author.screen_name}" %></small>
+				</li>
+			<% end %>
+		</ul>
+	<% else %>
+		<p style="margin-left:20px; margin-top:10px;">The list of questions is empty...<p>
+	<% end %>
+<%= box_end %>
+
+
+

@@ -1,0 +1,83 @@
+
+<div id="<%= product_filter_dom_id(product_filter.id) %>">	
+	
+	<% if @last_updated %>
+		<small style="margin-left:30px;">last updated @ <%= @last_updated %></small>
+	<% end %>
+	<!-- show/edit the definition of a filter -->
+	
+	<!-- ProductFilterSimple -->
+	<% if product_filter.is_a?(ProductFilterSimple) %>
+		<div style="margin-top:10px;">
+			<%= product_filter_label(product_filter, :display => display_name) %>
+			<%= link_to("<small>remove</small>", "/choices/remove_filter/#{product_filter.id}") if allow_remove %>
+		</div>
+	
+	<!-- ProductFilterFeatureNumeric -->
+	<% elsif product_filter.is_a?(ProductFilterFeatureNumeric) %>
+		<% form_remote_tag(:url => "/product_filters/update_product_filter/#{product_filter.id}", 
+			:html => {:style => "margin-top:10px;"}) do -%>	
+		<%= product_filter_label(product_filter, :display => display_name, :line_break => true) %>
+		min <%= text_field_tag('definition[min]', product_filter.descriptor[:min], :size =>5 ) %> 
+		max <%= text_field_tag('definition[max]', product_filter.descriptor[:max], :size =>5) %> 
+		<%= submit_tag "update" %>
+		<small id="product_filter_<%= product_filter.id %>_updated_at"></small>
+		<%= link_to("<small>remove</small>", "/choices/remove_filter/#{product_filter.id}", :style => "margin-left:10px;") if allow_remove %>
+		<% end -%>
+			
+	<!-- ProductFilterFeatureDate -->	
+	<% elsif product_filter.is_a?(ProductFilterFeatureDate) %>
+		<% form_remote_tag(:url => "/product_filters/update_product_filter/#{product_filter.id}", 
+			:html => {:style => "margin-top:10px;"}) do -%>	
+		<%= product_filter_label(product_filter, :display => display_name, :line_break => true ) %>
+		<%= select_date( product_filter.descriptor[:earlier], :prefix => 'definition[earlier]') %>
+		&nbsp;--&nbsp;
+		<%= select_date( product_filter.descriptor[:latest], :prefix => 'definition[latest]') %>
+		<%= submit_tag "update" %>
+		<small id="product_filter_<%= product_filter.id %>_updated_at"></small>
+		<%= link_to("<small>remove</small>", "/choices/remove_filter/#{product_filter.id}", :style => "margin-left:10px;") if allow_remove %>
+		<% end -%>
+
+	<!-- ProductFilterFeatureTags -->	
+	<% elsif product_filter.is_a?(ProductFilterFeatureTags) %>
+		<% form_remote_tag(:url => "/product_filters/update_product_filter/#{product_filter.id}", 
+			:html => {:style => "margin-top:10px;"}) do -%>
+			<%= product_filter_label(product_filter, :display => display_name) %>
+			<% if product_filter.feature %>
+			<% for tag in product_filter.feature.domain.get_tags %>
+				<%= check_box_tag('definition[tag_ids][]', tag.id, product_filter.descriptor[:tag_ids].include?(tag.id) ) %><%= tag.label %>
+			<% end %>
+			<% end %>
+			<%= select_tag(	:toto, options_for_select([["link or","or"],["link and","and"]], "or")) %>				
+			<%= submit_tag "update" %>
+			<small id="product_filter_<%= product_filter.id %>_updated_at"></small>
+			<%= link_to("<small>remove</small>", "/choices/remove_filter/#{product_filter.id}") if allow_remove %>
+		<% end -%>
+	
+	<!-- ProductFilterFeatureText -->		
+	<% elsif product_filter.is_a?(ProductFilterFeatureText) %>
+		<% form_remote_tag(:url => "/product_filters/update_product_filter/#{product_filter.id}", 
+			:html => {:style => "margin-top:10px;"}) do -%>	
+		<%= product_filter_label(product_filter, :display => display_name, :line_break => true) %>			
+		regular expression <%= text_field_tag('definition[regex]', product_filter.descriptor[:regex], :size =>15 ) %>
+		<%= submit_tag "update" %>
+		<small id="product_filter_<%= product_filter.id %>_updated_at"></small>
+		<%= link_to("<small>remove</small>", "/choices/remove_filter/#{product_filter.id}", :style => "margin-left:10px;") if allow_remove %>
+		<% end -%>
+	
+	<!-- ProductFilterRating -->		
+	<% elsif product_filter.is_a?(ProductFilterRating) %>
+		<% form_remote_tag(:url => "/product_filters/update_product_filter/#{product_filter.id}", 
+			:html => {:style => "margin-top:10px;"}) do -%>	
+		<%= product_filter_label(product_filter, :display => display_name, :line_break => false) %>			
+		<small id="product_filter_<%= product_filter.id %>_updated_at"></small>
+		<%= link_to("<small>remove</small>", "/choices/remove_filter/#{product_filter.id}", :style => "margin-left:10px;") if allow_remove %>
+		<% end -%>
+				
+	<!-- Domain Unknown -->
+	<% else %>	
+		Error class <%= product_filter.class %> product_filter = <%= product_filter.inspect %>
+	
+	<% end %>
+</div>	
+

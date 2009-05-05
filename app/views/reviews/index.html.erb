@@ -1,0 +1,48 @@
+<%= render(:partial => "/products/short", :locals => {:product => @product })%>
+
+
+<%= box_title %>
+	Reviews 
+	<span style="font-size:small;">
+	<% local_js = "document.getElementById('reviews_by_features').toggle(); document.getElementById('reviews_by_authors').toggle();" %>
+	 by
+	<%= radio_button_tag("display_by_cb", nil, true, :onclick => local_js) %>&nbsp;authors
+	<%= radio_button_tag("display_by_cb", nil, false, :onclick => local_js) %>&nbsp;features 
+	</span>
+<%= box_content %>
+	 	
+	<div style="padding-bottom:3px; margin-bottom:10px; border-bottom:1px dashed black;">
+		<% if @authored_review %>
+			<%= link_to("edit your review", edit_review_path(@authored_review)) %>
+		<% else %>
+			<%= link_to("create a review", product_reviews_path(@product), :method => :post) %>
+		<% end %>
+	</div>
+	
+	<div id="reviews_by_features" style="display:none;">
+	<% for category, feature_roots in @product.get_feature_values_roots %>
+		<% if feature_roots.size > 0 %>
+			<div class="feature_category"><%= category.label %>&nbsp;features</div>
+			<%= render(:partial => "/reviews/feature_average", :locals => {:features => feature_roots, :display => 'true', :dom_id => ""})%>
+		<% end %>
+	<% end %>
+	</div>
+	
+	<div id="reviews_by_authors" style="display:true;">
+	<!-- list of all reviews for product -->
+	<% if @reviews.size > 0 %>
+		<ul style="margin-left:15px;">
+			<% for review in @reviews %>
+				<li <%= "style='background:lightblue;'" if review.author_id == @current_user.id %>>
+					<%= render(:partial => "/reviews/short", :locals => {:review => review, :link_more => true }) %>
+				</li>
+			<% end %>
+		</ul>
+	<% else %>
+		There is no review for <%= @product.label %> by other users
+	<% end %>
+	</div>
+	
+<%= box_end %>
+
+

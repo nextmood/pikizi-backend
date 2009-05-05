@@ -1,0 +1,22 @@
+
+<%= box_title %>
+	<%= @category.path_without_root %>'s model (<%= @category.features_genuine.size %> features)
+<%= box_content %>
+
+<%= link_to_function("adding a new root feature", "document.getElementById('create_root_of_#{category_dom_id(@category.id)}').toggle();")%>
+<div id="create_root_of_<%= category_dom_id(@category.id) %>" style="display:none;">
+	<%= render(:partial => "features/create", :locals => { :feature_parent => nil, :category => @category })%>
+</div>
+
+<!-- Display the features for edition -->
+<% for category, feature_roots in @trees %>
+	<% if feature_roots.size > 0 %>
+		<div class="feature_category"><%= category.label %>'s features</div>
+		<%= render(:partial => "/categories/features", :locals => {:features => feature_roots, :category => @category }) %>
+	<% end %>
+<% end %>
+
+<%= box_end %>
+
+
+

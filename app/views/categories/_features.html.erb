@@ -1,0 +1,29 @@
+<!-- list the features for a given category -->
+<ul style="list-style-type: none; margin-left: 0; padding-left: 1.5em; text-indent: -1.5em;">
+<% for feature in features %>
+	<li>
+		<p>
+			<%= feature.definition_as_html %>
+			&nbsp;<%= link_to_function(image_tag("icons/edit.png", :border => 0),
+			 			"document.getElementById('#{feature_dom_id(feature.id)}').toggle();")%>
+			&nbsp;<%= link_to_function(image_tag("icons/add_node.png", :border => 0),
+			 			"document.getElementById('create_child_of_#{feature_dom_id(feature.id)}').toggle();")%>
+		</p>
+		<!-- child creator-->
+		<div id="create_child_of_<%= feature_dom_id(feature.id) %>" style="display:none;">
+			<%= render(:partial => "features/create", :locals => { :feature_parent => feature, :category => category })%>
+		</div>
+		<!-- feature editor -->
+		<div id="<%= feature_dom_id(feature.id) %>" style="display:none;">
+			<%= render(:partial => "features/edit", :locals => { :feature => feature })%>
+		</div>
+		<!-- display sub attributes -->
+		<% if feature.node_children.size > 0 %>
+			<%= render(:partial => "/categories/features", :locals => {:features => feature.node_children, :category => category}) %>
+		<% end %>
+	</li>
+<% end %>
+</ul>
+
+
+	

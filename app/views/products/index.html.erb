@@ -1,0 +1,9 @@
+<h1>List of products</h1>
+<ul>
+	<% for product in @products %>
+		<li><%= link_to(product.label, "/products/#{product.id}" ) %></b> in <%= product.category.path %></li>
+	<% end %>
+</ul>
+<% if current_user %>
+	<%= link_to('New product', "/products/new", :method => :new) %>
+<% end %>

@@ -1,0 +1,16 @@
+<ul id="dropzone_choice_<%= choice.id %>" class="dropzone_list" style="min-height:80px;" >
+	<% if choice.tips.size > 0 %>
+		<% for tip in choice.tips %>
+			<%= render(:partial => "/main/thumbnail", 
+				:locals => {:ar_object => tip.product, :container_tag => "li", :corner_link => "/choices/tip_remove/#{tip.id}", :prefix => "reco_choice_#{choice.id}" }) %>
+		<% end %>
+	<% end %>
+</ul>
+
+<%= drop_receiving_element("dropzone_choice_#{choice.id}", # The id of the drop zone
+  :accept => "object_album", 
+  :url    => { :controller => "choices", :action => "tip_add", :choice_id => choice.id  },  # The action to call
+  #:url    => "/recommend_product/#{choice_id}/",
+  :with   => "'dom_id=' + (element.id)"  # The query string parameters
+
+)%>

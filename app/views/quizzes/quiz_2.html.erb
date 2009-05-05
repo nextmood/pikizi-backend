@@ -1,0 +1,9 @@
+<h1>Quiz 2</h1>
+
+	Lauching Quiz 2 widget for products
+	<ul >
+		<% for product in @wishlist.products %>
+			<%= render(	:partial => "/products/icon", 
+						:locals => {:product => product, :html_tag => "li", :is_draggable => false}) %>
+		<% end %>
+	</ul>

@@ -1,0 +1,34 @@
+<!-- 3 positions check box -->
+<% if is_multiple %>
+	<!-- multiple choice, checkbox -->
+	<%= check_box_tag("toto") %>
+	
+<% elsif false %>
+	<!-- triple choice, checkbox -->
+	<% dom_oo = "#{prefix}_oo" %>
+	<% dom_ok = "#{prefix}_ok" %>
+	<% dom_ko = "#{prefix}_ko" %>
+	<% dom_field = "#{prefix}_field" %>
+	<%= hidden_field_tag(dom_field, "0", :size => 3) %>
+
+	<%= image_tag("icons/opinion_oo.jpg", :border => 1, :id => dom_oo, :style => "display:true; cursor:hand;",	
+		:onclick => "document.getElementById('#{dom_oo}').toggle(); 
+					 document.getElementById('#{dom_ok}').toggle(); 
+					 document.getElementById('#{dom_field}').value = 1;")  %>
+
+	<%= image_tag("icons/opinion_ok.jpg", :border => 1, :id => dom_ok, :style => "display:none; cursor:hand;",
+		:onclick => "document.getElementById('#{dom_ok}').toggle(); 
+					 document.getElementById('#{dom_ko}').toggle(); 
+					 document.getElementById('#{dom_field}').value = -1;")  %>
+
+	<%= image_tag("icons/opinion_ko.jpg", :border => 1, :id => dom_ko, :style => "display:none; cursor:hand;",
+		:onclick => "document.getElementById('#{dom_ko}').toggle(); 
+					 document.getElementById('#{dom_oo}').toggle(); 
+					 document.getElementById('#{dom_field}').value = 0;") %>					
+	
+<% else %>
+	<!-- only one choice -->
+	<%= radio_button_tag("toto", false) %>
+<% end %>
+											
+
