@@ -2,19 +2,19 @@
 
 <script type="text/javascript">
 
-function switch_panel(panel_name) 
+function switch_panel(panel_name, choice_id) 
 {
 	if (panel_name=='feature') or (panel_name=='rating')
 	{
-		document.getElementById('select_feature').style.display='inline';
-		document.getElementById('select_product').style.display='none';
+		document.getElementById('select_feature_' + choice_id).style.display='inline';
+		document.getElementById('select_product_' + choice_id).style.display='none';
 	}
 	
 	
 	if (panel_name=='product')
 	{
-		document.getElementById('select_product').style.display='inline';
-		document.getElementById('select_feature').style.display='none';
+		document.getElementById('select_product_' + choice_id).style.display='inline';
+		document.getElementById('select_feature_' + choice_id).style.display='none';
 	}
 	
 	return true;
@@ -74,11 +74,14 @@ function switch_panel(panel_name)
 			<small>create product's recommendations for this choice:</small><br/>
 			<%= select_tag("recommendation", options_from_collection_for_select([["+1", "ok"], ["-1", "ko "]], "first", "last", "+1")) %>
 			on 
-			<%= radio_button_tag("type_filter", "feature", true, :onclick => "switch_panel('feature');") %>Feature 
-			<%= radio_button_tag("type_filter", "rating", false, :onclick => "switch_panel('rating');") %>Rating 
-			<%= radio_button_tag("type_filter", "product", false, :onclick => "switch_panel('product');") %>Product
-			<%= select_tag(:feature_id, options_from_collection_for_select(question.category.features_availables, "first", "last"), :id => "select_feature", :style => "width:210px; display:inline;") %>
-			<%= select_tag(:product_id, options_from_collection_for_select(question.category.products_genuine, "id", "label"), :id => "select_product", :style => "width:210px; display:none;") %>
+			<%= radio_button_tag("type_filter", "feature", true, 
+				:onclick => "switch_panel('feature', '#{choice_generic.id}');") %>Feature 
+			<%= radio_button_tag("type_filter", "rating", false, 
+				:onclick => "switch_panel('rating', '#{choice_generic.id}');") %>Rating 
+			<%= radio_button_tag("type_filter", "product", false, 
+				:onclick => "switch_panel('product', '#{choice_generic.id}');") %>Product
+			<%= select_tag(:feature_id, options_from_collection_for_select(question.category.features_availables, "first", "last"), :id => "select_feature_#{choice_generic.id}", :style => "width:210px; display:inline;") %>
+			<%= select_tag(:product_id, options_from_collection_for_select(question.category.products_genuine, "id", "label"), :id => "select_product_#{choice_generic.id}", :style => "width:210px; display:none;") %>
 			<%= submit_tag 'Create' %>
 		<% end -%>
 		
