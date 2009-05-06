@@ -45,3 +45,26 @@ class PikiziLib
   end
   
 end
+
+# extra function to compute average and sum
+
+class Array
+
+  # compute the average of an array
+  # simple -> [5,2].average -> 3.5
+  # weighted -> [[5, 1], [2, 3]].average -> 2.75
+  # return a float (or nil if undefined)
+  def avg_w
+    weighted_sum = 0.0
+    total_sum = 0.0
+    weighted = (first.is_a?(Array))
+    weight = 1.0
+    each { |value|
+      value, weight = value if weighted
+      weighted_sum += value * weight
+      total_sum += weight
+    }
+    weighted_sum / total_sum if total_sum > 0.0
+  end
+
+end
