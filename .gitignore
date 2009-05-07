@@ -1,1 +1,2 @@
 *.log  # Will exclude all .log files
+uploaded_photos # exclude all photos and symbolic link?
