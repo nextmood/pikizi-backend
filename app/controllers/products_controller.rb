@@ -49,6 +49,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  # GET /products/1/thumbnail_150.jpg
+  def thumbnail_120
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.jpg
+    end
+  end
   
   # get /create_product_from_amazon/:category_id/:asin
   def new_from_amazon

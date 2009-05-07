@@ -1,0 +1,3 @@
+@product.operate do |image|
+    image.resize '120x120', :crop => true
+end

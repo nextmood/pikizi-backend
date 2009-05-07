@@ -85,7 +85,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :choices, :member => { :thumbnail => :get, :thumbnail_150 => :get, :add_filter => :post  }
   
   # products (associated with reviews)
-  map.resources :products, :member => { :thumbnail => :get, :thumbnail_150 => :get }, :has_many => [:reviews, :questions], :shallow => true
+  map.resources :products, :member => { :thumbnail => :get, :thumbnail_150 => :get, :thumbnail_120 => :get }, :has_many => [:reviews, :questions], :shallow => true
   map.resources :reviews # this is needed for reviews.xml only ! OPTIMIZE
 
   # features
