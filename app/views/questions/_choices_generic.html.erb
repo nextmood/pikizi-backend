@@ -92,6 +92,7 @@ function switch_panel(panel_name, choice_id)
 		<% end %>
 
 		<!-- logical operators between product filters -->
+		<!-- TOFIX -->
 		<% if choice_generic.product_filters.size > 1 %>
 			<div style="margin-top:10px;">Recommendations are linked by:<%= select_tag(:toto, options_for_select([["or","or"],["and","and"]], "or")) %></div>
 		<% end %>
